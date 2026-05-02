@@ -1,0 +1,12 @@
+# Kebutuhan Scraping IG & Web
+selenium
+beautifulsoup4
+instaloader
+
+# Kebutuhan TomTom API & Data
+requests
+pandas
+
+# Kebutuhan Database Airflow & ETL
+psycopg2-binary
+sqlalchemy

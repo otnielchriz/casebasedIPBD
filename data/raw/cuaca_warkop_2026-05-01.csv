@@ -1,0 +1,25 @@
+waktu,kota,suhu,suhu_terasa,kelembapan,kondisi,deskripsi,kecepatan_angin,curah_hujan,cloudiness
+2026-05-01T00:00,Node_Warkop_Kusuma,24.0,29.3,97,Rain,Hujan Ringan,3.8,1.4,100
+2026-05-01T01:00,Node_Warkop_Kusuma,24.1,29.5,97,Drizzle,Gerimis Sedang,3.7,0.6,99
+2026-05-01T02:00,Node_Warkop_Kusuma,24.0,29.3,98,Drizzle,Gerimis Ringan,4.6,0.2,86
+2026-05-01T03:00,Node_Warkop_Kusuma,23.6,27.9,97,Drizzle,Gerimis Sedang,8.5,0.5,100
+2026-05-01T04:00,Node_Warkop_Kusuma,23.3,27.8,98,Drizzle,Gerimis Sedang,6.2,0.7,100
+2026-05-01T05:00,Node_Warkop_Kusuma,23.1,27.4,97,Drizzle,Gerimis Ringan,6.5,0.1,100
+2026-05-01T06:00,Node_Warkop_Kusuma,23.0,26.5,98,Clouds,Mendung,12.1,0.0,100
+2026-05-01T07:00,Node_Warkop_Kusuma,24.5,28.5,95,Clouds,Sebagian Berawan,13.1,0.0,34
+2026-05-01T08:00,Node_Warkop_Kusuma,26.2,30.4,86,Clear,Cerah,11.9,0.0,17
+2026-05-01T09:00,Node_Warkop_Kusuma,27.8,31.9,80,Clouds,Sebagian Berawan,12.7,0.0,21
+2026-05-01T10:00,Node_Warkop_Kusuma,29.1,33.9,72,Drizzle,Gerimis Ringan,12.3,0.1,30
+2026-05-01T11:00,Node_Warkop_Kusuma,30.0,35.6,70,Drizzle,Gerimis Ringan,13.2,0.1,21
+2026-05-01T12:00,Node_Warkop_Kusuma,30.5,35.8,66,Drizzle,Gerimis Ringan,14.1,0.1,27
+2026-05-01T13:00,Node_Warkop_Kusuma,30.2,35.1,64,Drizzle,Gerimis Ringan,14.4,0.2,68
+2026-05-01T14:00,Node_Warkop_Kusuma,29.9,33.1,63,Drizzle,Gerimis Ringan,14.0,0.1,59
+2026-05-01T15:00,Node_Warkop_Kusuma,29.9,33.1,66,Clouds,Sebagian Berawan,14.3,0.0,36
+2026-05-01T16:00,Node_Warkop_Kusuma,29.0,32.1,69,Clouds,Sebagian Berawan,16.0,0.0,41
+2026-05-01T17:00,Node_Warkop_Kusuma,27.5,30.4,75,Clouds,Berawan,17.2,0.0,52
+2026-05-01T18:00,Node_Warkop_Kusuma,26.4,28.9,78,Clouds,Sebagian Berawan,17.5,0.0,45
+2026-05-01T19:00,Node_Warkop_Kusuma,26.4,29.2,81,Clouds,Sebagian Berawan,18.2,0.0,27
+2026-05-01T20:00,Node_Warkop_Kusuma,26.2,29.3,82,Clouds,Sebagian Berawan,15.7,0.0,26
+2026-05-01T21:00,Node_Warkop_Kusuma,25.8,29.1,83,Clear,Cerah,14.0,0.0,8
+2026-05-01T22:00,Node_Warkop_Kusuma,25.4,28.6,84,Clear,Cerah,13.9,0.0,16
+2026-05-01T23:00,Node_Warkop_Kusuma,25.0,28.4,86,Clouds,Sebagian Berawan,12.1,0.0,31

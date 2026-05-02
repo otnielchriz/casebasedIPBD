@@ -1,0 +1,366 @@
+tanggal,nama_hari,is_libur,is_weekend,is_libur_nasional,is_cuti_bersama,keterangan
+2026-01-01,Kamis,True,False,True,False,Tahun Baru 2026 Masehi
+2026-01-02,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-01-03,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-01-04,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-01-05,Senin,False,False,False,False,
+2026-01-06,Selasa,False,False,False,False,
+2026-01-07,Rabu,False,False,False,False,
+2026-01-08,Kamis,False,False,False,False,
+2026-01-09,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-01-10,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-01-11,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-01-12,Senin,False,False,False,False,
+2026-01-13,Selasa,False,False,False,False,
+2026-01-14,Rabu,False,False,False,False,
+2026-01-15,Kamis,False,False,False,False,
+2026-01-16,Jumat,True,True,True,False,Isra Mikraj Nabi Muhammad SAW
+2026-01-17,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-01-18,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-01-19,Senin,False,False,False,False,
+2026-01-20,Selasa,False,False,False,False,
+2026-01-21,Rabu,False,False,False,False,
+2026-01-22,Kamis,False,False,False,False,
+2026-01-23,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-01-24,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-01-25,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-01-26,Senin,False,False,False,False,
+2026-01-27,Selasa,False,False,False,False,
+2026-01-28,Rabu,False,False,False,False,
+2026-01-29,Kamis,False,False,False,False,
+2026-01-30,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-01-31,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-02-01,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-02-02,Senin,False,False,False,False,
+2026-02-03,Selasa,False,False,False,False,
+2026-02-04,Rabu,False,False,False,False,
+2026-02-05,Kamis,False,False,False,False,
+2026-02-06,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-02-07,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-02-08,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-02-09,Senin,False,False,False,False,
+2026-02-10,Selasa,False,False,False,False,
+2026-02-11,Rabu,False,False,False,False,
+2026-02-12,Kamis,False,False,False,False,
+2026-02-13,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-02-14,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-02-15,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-02-16,Senin,True,False,True,True,Cuti Bersama Tahun Baru Imlek
+2026-02-17,Selasa,True,False,True,False,Tahun Baru Imlek 2577
+2026-02-18,Rabu,False,False,False,False,
+2026-02-19,Kamis,False,False,False,False,
+2026-02-20,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-02-21,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-02-22,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-02-23,Senin,False,False,False,False,
+2026-02-24,Selasa,False,False,False,False,
+2026-02-25,Rabu,False,False,False,False,
+2026-02-26,Kamis,False,False,False,False,
+2026-02-27,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-02-28,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-03-01,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-03-02,Senin,False,False,False,False,
+2026-03-03,Selasa,False,False,False,False,
+2026-03-04,Rabu,False,False,False,False,
+2026-03-05,Kamis,False,False,False,False,
+2026-03-06,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-03-07,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-03-08,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-03-09,Senin,False,False,False,False,
+2026-03-10,Selasa,False,False,False,False,
+2026-03-11,Rabu,False,False,False,False,
+2026-03-12,Kamis,False,False,False,False,
+2026-03-13,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-03-14,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-03-15,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-03-16,Senin,False,False,False,False,
+2026-03-17,Selasa,False,False,False,False,
+2026-03-18,Rabu,True,False,True,True,Cuti Bersama Nyepi
+2026-03-19,Kamis,True,False,True,False,Hari Suci Nyepi
+2026-03-20,Jumat,True,True,True,True,Cuti Bersama Idul Fitri
+2026-03-21,Sabtu,True,True,True,False,Idul Fitri 1447 H (Hari 1)
+2026-03-22,Minggu,True,True,True,False,Idul Fitri 1447 H (Hari 2)
+2026-03-23,Senin,True,False,True,True,Cuti Bersama Idul Fitri
+2026-03-24,Selasa,True,False,True,True,Cuti Bersama Idul Fitri
+2026-03-25,Rabu,False,False,False,False,
+2026-03-26,Kamis,False,False,False,False,
+2026-03-27,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-03-28,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-03-29,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-03-30,Senin,False,False,False,False,
+2026-03-31,Selasa,False,False,False,False,
+2026-04-01,Rabu,False,False,False,False,
+2026-04-02,Kamis,False,False,False,False,
+2026-04-03,Jumat,True,True,True,False,Wafat Yesus Kristus
+2026-04-04,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-04-05,Minggu,True,True,True,False,Kebangkitan Yesus Kristus (Paskah)
+2026-04-06,Senin,False,False,False,False,
+2026-04-07,Selasa,False,False,False,False,
+2026-04-08,Rabu,False,False,False,False,
+2026-04-09,Kamis,False,False,False,False,
+2026-04-10,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-04-11,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-04-12,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-04-13,Senin,False,False,False,False,
+2026-04-14,Selasa,False,False,False,False,
+2026-04-15,Rabu,False,False,False,False,
+2026-04-16,Kamis,False,False,False,False,
+2026-04-17,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-04-18,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-04-19,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-04-20,Senin,False,False,False,False,
+2026-04-21,Selasa,False,False,False,False,
+2026-04-22,Rabu,False,False,False,False,
+2026-04-23,Kamis,False,False,False,False,
+2026-04-24,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-04-25,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-04-26,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-04-27,Senin,False,False,False,False,
+2026-04-28,Selasa,False,False,False,False,
+2026-04-29,Rabu,False,False,False,False,
+2026-04-30,Kamis,False,False,False,False,
+2026-05-01,Jumat,True,True,True,False,Hari Buruh Internasional
+2026-05-02,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-05-03,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-05-04,Senin,False,False,False,False,
+2026-05-05,Selasa,False,False,False,False,
+2026-05-06,Rabu,False,False,False,False,
+2026-05-07,Kamis,False,False,False,False,
+2026-05-08,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-05-09,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-05-10,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-05-11,Senin,False,False,False,False,
+2026-05-12,Selasa,False,False,False,False,
+2026-05-13,Rabu,False,False,False,False,
+2026-05-14,Kamis,True,False,True,False,Kenaikan Yesus Kristus
+2026-05-15,Jumat,True,True,True,True,Cuti Bersama Kenaikan Yesus Kristus
+2026-05-16,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-05-17,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-05-18,Senin,False,False,False,False,
+2026-05-19,Selasa,False,False,False,False,
+2026-05-20,Rabu,False,False,False,False,
+2026-05-21,Kamis,False,False,False,False,
+2026-05-22,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-05-23,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-05-24,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-05-25,Senin,False,False,False,False,
+2026-05-26,Selasa,False,False,False,False,
+2026-05-27,Rabu,True,False,True,False,Idul Adha 1447 H
+2026-05-28,Kamis,True,False,True,True,Cuti Bersama Idul Adha
+2026-05-29,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-05-30,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-05-31,Minggu,True,True,True,False,Hari Raya Waisak 2570 BE
+2026-06-01,Senin,True,False,True,False,Hari Lahir Pancasila
+2026-06-02,Selasa,False,False,False,False,
+2026-06-03,Rabu,False,False,False,False,
+2026-06-04,Kamis,False,False,False,False,
+2026-06-05,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-06-06,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-06-07,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-06-08,Senin,False,False,False,False,
+2026-06-09,Selasa,False,False,False,False,
+2026-06-10,Rabu,False,False,False,False,
+2026-06-11,Kamis,False,False,False,False,
+2026-06-12,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-06-13,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-06-14,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-06-15,Senin,False,False,False,False,
+2026-06-16,Selasa,True,False,True,False,Tahun Baru Islam 1448 H
+2026-06-17,Rabu,False,False,False,False,
+2026-06-18,Kamis,False,False,False,False,
+2026-06-19,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-06-20,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-06-21,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-06-22,Senin,False,False,False,False,
+2026-06-23,Selasa,False,False,False,False,
+2026-06-24,Rabu,False,False,False,False,
+2026-06-25,Kamis,False,False,False,False,
+2026-06-26,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-06-27,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-06-28,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-06-29,Senin,False,False,False,False,
+2026-06-30,Selasa,False,False,False,False,
+2026-07-01,Rabu,False,False,False,False,
+2026-07-02,Kamis,False,False,False,False,
+2026-07-03,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-07-04,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-07-05,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-07-06,Senin,False,False,False,False,
+2026-07-07,Selasa,False,False,False,False,
+2026-07-08,Rabu,False,False,False,False,
+2026-07-09,Kamis,False,False,False,False,
+2026-07-10,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-07-11,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-07-12,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-07-13,Senin,False,False,False,False,
+2026-07-14,Selasa,False,False,False,False,
+2026-07-15,Rabu,False,False,False,False,
+2026-07-16,Kamis,False,False,False,False,
+2026-07-17,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-07-18,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-07-19,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-07-20,Senin,False,False,False,False,
+2026-07-21,Selasa,False,False,False,False,
+2026-07-22,Rabu,False,False,False,False,
+2026-07-23,Kamis,False,False,False,False,
+2026-07-24,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-07-25,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-07-26,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-07-27,Senin,False,False,False,False,
+2026-07-28,Selasa,False,False,False,False,
+2026-07-29,Rabu,False,False,False,False,
+2026-07-30,Kamis,False,False,False,False,
+2026-07-31,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-08-01,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-08-02,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-08-03,Senin,False,False,False,False,
+2026-08-04,Selasa,False,False,False,False,
+2026-08-05,Rabu,False,False,False,False,
+2026-08-06,Kamis,False,False,False,False,
+2026-08-07,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-08-08,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-08-09,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-08-10,Senin,False,False,False,False,
+2026-08-11,Selasa,False,False,False,False,
+2026-08-12,Rabu,False,False,False,False,
+2026-08-13,Kamis,False,False,False,False,
+2026-08-14,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-08-15,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-08-16,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-08-17,Senin,True,False,True,False,HUT Kemerdekaan RI ke-81
+2026-08-18,Selasa,False,False,False,False,
+2026-08-19,Rabu,False,False,False,False,
+2026-08-20,Kamis,False,False,False,False,
+2026-08-21,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-08-22,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-08-23,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-08-24,Senin,False,False,False,False,
+2026-08-25,Selasa,True,False,True,False,Maulid Nabi Muhammad SAW
+2026-08-26,Rabu,False,False,False,False,
+2026-08-27,Kamis,False,False,False,False,
+2026-08-28,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-08-29,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-08-30,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-08-31,Senin,False,False,False,False,
+2026-09-01,Selasa,False,False,False,False,
+2026-09-02,Rabu,False,False,False,False,
+2026-09-03,Kamis,False,False,False,False,
+2026-09-04,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-09-05,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-09-06,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-09-07,Senin,False,False,False,False,
+2026-09-08,Selasa,False,False,False,False,
+2026-09-09,Rabu,False,False,False,False,
+2026-09-10,Kamis,False,False,False,False,
+2026-09-11,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-09-12,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-09-13,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-09-14,Senin,False,False,False,False,
+2026-09-15,Selasa,False,False,False,False,
+2026-09-16,Rabu,False,False,False,False,
+2026-09-17,Kamis,False,False,False,False,
+2026-09-18,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-09-19,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-09-20,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-09-21,Senin,False,False,False,False,
+2026-09-22,Selasa,False,False,False,False,
+2026-09-23,Rabu,False,False,False,False,
+2026-09-24,Kamis,False,False,False,False,
+2026-09-25,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-09-26,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-09-27,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-09-28,Senin,False,False,False,False,
+2026-09-29,Selasa,False,False,False,False,
+2026-09-30,Rabu,False,False,False,False,
+2026-10-01,Kamis,False,False,False,False,
+2026-10-02,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-10-03,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-10-04,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-10-05,Senin,False,False,False,False,
+2026-10-06,Selasa,False,False,False,False,
+2026-10-07,Rabu,False,False,False,False,
+2026-10-08,Kamis,False,False,False,False,
+2026-10-09,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-10-10,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-10-11,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-10-12,Senin,False,False,False,False,
+2026-10-13,Selasa,False,False,False,False,
+2026-10-14,Rabu,False,False,False,False,
+2026-10-15,Kamis,False,False,False,False,
+2026-10-16,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-10-17,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-10-18,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-10-19,Senin,False,False,False,False,
+2026-10-20,Selasa,False,False,False,False,
+2026-10-21,Rabu,False,False,False,False,
+2026-10-22,Kamis,False,False,False,False,
+2026-10-23,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-10-24,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-10-25,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-10-26,Senin,False,False,False,False,
+2026-10-27,Selasa,False,False,False,False,
+2026-10-28,Rabu,False,False,False,False,
+2026-10-29,Kamis,False,False,False,False,
+2026-10-30,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-10-31,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-11-01,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-11-02,Senin,False,False,False,False,
+2026-11-03,Selasa,False,False,False,False,
+2026-11-04,Rabu,False,False,False,False,
+2026-11-05,Kamis,False,False,False,False,
+2026-11-06,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-11-07,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-11-08,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-11-09,Senin,False,False,False,False,
+2026-11-10,Selasa,False,False,False,False,
+2026-11-11,Rabu,False,False,False,False,
+2026-11-12,Kamis,False,False,False,False,
+2026-11-13,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-11-14,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-11-15,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-11-16,Senin,False,False,False,False,
+2026-11-17,Selasa,False,False,False,False,
+2026-11-18,Rabu,False,False,False,False,
+2026-11-19,Kamis,False,False,False,False,
+2026-11-20,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-11-21,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-11-22,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-11-23,Senin,False,False,False,False,
+2026-11-24,Selasa,False,False,False,False,
+2026-11-25,Rabu,False,False,False,False,
+2026-11-26,Kamis,False,False,False,False,
+2026-11-27,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-11-28,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-11-29,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-11-30,Senin,False,False,False,False,
+2026-12-01,Selasa,False,False,False,False,
+2026-12-02,Rabu,False,False,False,False,
+2026-12-03,Kamis,False,False,False,False,
+2026-12-04,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-12-05,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-12-06,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-12-07,Senin,False,False,False,False,
+2026-12-08,Selasa,False,False,False,False,
+2026-12-09,Rabu,False,False,False,False,
+2026-12-10,Kamis,False,False,False,False,
+2026-12-11,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-12-12,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-12-13,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-12-14,Senin,False,False,False,False,
+2026-12-15,Selasa,False,False,False,False,
+2026-12-16,Rabu,False,False,False,False,
+2026-12-17,Kamis,False,False,False,False,
+2026-12-18,Jumat,True,True,False,False,Akhir Pekan (Jumat)
+2026-12-19,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-12-20,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-12-21,Senin,False,False,False,False,
+2026-12-22,Selasa,False,False,False,False,
+2026-12-23,Rabu,False,False,False,False,
+2026-12-24,Kamis,True,False,True,True,Cuti Bersama Natal
+2026-12-25,Jumat,True,True,True,False,Hari Raya Natal
+2026-12-26,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
+2026-12-27,Minggu,True,True,False,False,Akhir Pekan (Minggu)
+2026-12-28,Senin,False,False,False,False,
+2026-12-29,Selasa,False,False,False,False,
+2026-12-30,Rabu,False,False,False,False,
+2026-12-31,Kamis,False,False,False,False,

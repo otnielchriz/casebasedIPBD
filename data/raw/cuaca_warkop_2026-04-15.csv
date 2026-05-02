@@ -1,0 +1,25 @@
+waktu,kota,suhu,suhu_terasa,kelembapan,kondisi,deskripsi,kecepatan_angin,curah_hujan,cloudiness
+2026-04-15T00:00,Node_Warkop_Kusuma,23.4,28.8,99,Drizzle,Gerimis Ringan,0.8,0.4,97
+2026-04-15T01:00,Node_Warkop_Kusuma,23.0,27.6,98,Rain,Hujan Ringan,4.9,1.9,100
+2026-04-15T02:00,Node_Warkop_Kusuma,23.0,27.9,99,Drizzle,Gerimis Sedang,3.8,0.5,99
+2026-04-15T03:00,Node_Warkop_Kusuma,22.8,27.3,96,Rain,Hujan Sedang,3.5,2.9,100
+2026-04-15T04:00,Node_Warkop_Kusuma,22.5,27.3,99,Rain,Hujan Sedang,2.3,6.8,100
+2026-04-15T05:00,Node_Warkop_Kusuma,22.4,26.7,99,Rain,Hujan Sedang,5.3,5.6,100
+2026-04-15T06:00,Node_Warkop_Kusuma,22.6,27.2,98,Rain,Hujan Sedang,3.7,3.2,100
+2026-04-15T07:00,Node_Warkop_Kusuma,24.0,28.9,95,Drizzle,Gerimis Lebat,5.6,1.0,88
+2026-04-15T08:00,Node_Warkop_Kusuma,26.4,31.5,84,Clouds,Sebagian Berawan,4.3,0.0,33
+2026-04-15T09:00,Node_Warkop_Kusuma,27.9,32.9,75,Clouds,Berawan,3.1,0.0,73
+2026-04-15T10:00,Node_Warkop_Kusuma,29.4,35.7,68,Clouds,Mendung,2.9,0.0,85
+2026-04-15T11:00,Node_Warkop_Kusuma,30.6,37.7,63,Clouds,Mendung,2.8,0.0,100
+2026-04-15T12:00,Node_Warkop_Kusuma,31.1,39.1,63,Clouds,Mendung,1.1,0.0,99
+2026-04-15T13:00,Node_Warkop_Kusuma,31.7,38.0,59,Clouds,Sebagian Berawan,6.1,0.0,30
+2026-04-15T14:00,Node_Warkop_Kusuma,29.3,34.0,68,Drizzle,Gerimis Sedang,13.0,0.5,89
+2026-04-15T15:00,Node_Warkop_Kusuma,28.4,32.2,72,Drizzle,Gerimis Ringan,10.3,0.2,51
+2026-04-15T16:00,Node_Warkop_Kusuma,27.5,31.0,74,Clouds,Sebagian Berawan,11.5,0.0,48
+2026-04-15T17:00,Node_Warkop_Kusuma,26.7,30.6,77,Clouds,Sebagian Berawan,8.3,0.0,35
+2026-04-15T18:00,Node_Warkop_Kusuma,26.0,30.5,83,Clouds,Sebagian Berawan,5.8,0.0,35
+2026-04-15T19:00,Node_Warkop_Kusuma,25.5,30.6,91,Clouds,Sebagian Berawan,6.9,0.0,34
+2026-04-15T20:00,Node_Warkop_Kusuma,25.3,30.6,92,Clouds,Sebagian Berawan,5.0,0.0,34
+2026-04-15T21:00,Node_Warkop_Kusuma,25.1,30.5,92,Clouds,Mendung,4.2,0.0,80
+2026-04-15T22:00,Node_Warkop_Kusuma,25.1,30.4,92,Clouds,Mendung,4.1,0.0,93
+2026-04-15T23:00,Node_Warkop_Kusuma,24.5,29.9,94,Clear,Cerah,2.7,0.0,16
