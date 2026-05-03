@@ -16,9 +16,9 @@ def load_hari_libur_to_postgres():
     path_csv = '/opt/airflow/data/raw/hari_libur_2026.csv'
     pg_hook = PostgresHook(postgres_conn_id='postgres_traffic')
 
-    # Ganti semua "hari_libur" jadi "kalender_libur"
+    # Ganti semua "hari_libur" jadi "hari_libur"
     pg_hook.run("""
-        CREATE TABLE IF NOT EXISTS kalender_libur (
+        CREATE TABLE IF NOT EXISTS hari_libur (
             id                 SERIAL PRIMARY KEY,
             tanggal            DATE UNIQUE,
             nama_hari          VARCHAR(10),
@@ -42,7 +42,7 @@ def load_hari_libur_to_postgres():
     for _, row in df.iterrows():
         try:
             pg_hook.run("""
-                INSERT INTO kalender_libur
+                INSERT INTO hari_libur
                     (tanggal, nama_hari, is_libur, is_weekend, is_libur_nasional, is_cuti_bersama, keterangan)
                 VALUES (%s, %s, %s, %s, %s, %s, %s)
                 ON CONFLICT (tanggal) DO NOTHING

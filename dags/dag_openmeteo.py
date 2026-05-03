@@ -20,7 +20,7 @@ from scrap_weather_ncep import fetch_weather_ncep
 # LOAD FUNCTION
 # =========================
 def load_csv_to_postgres(**kwargs):
-    tanggal_eksekusi = kwargs['ds']
+    tanggal_eksekusi = kwargs.get('ds') or kwargs['logical_date'].strftime('%Y-%m-%d')
 
     file_path = f'/opt/airflow/data/raw/cuaca_warkop_{tanggal_eksekusi}.csv'
 
@@ -29,6 +29,19 @@ def load_csv_to_postgres(**kwargs):
 
     print(f"📂 Membaca data dari {file_path}")
     df = pd.read_csv(file_path)
+
+    # =========================
+    # TAMBAHAN FORMAT TIPE DATA
+    # =========================
+    df['waktu'] = pd.to_datetime(df['waktu'], errors='coerce')
+
+    df['kelembapan'] = pd.to_numeric(df['kelembapan'], errors='coerce')
+    df['cloudiness'] = pd.to_numeric(df['cloudiness'], errors='coerce')
+
+    df['suhu'] = pd.to_numeric(df['suhu'], errors='coerce')
+    df['suhu_terasa'] = pd.to_numeric(df['suhu_terasa'], errors='coerce')
+    df['kecepatan_angin'] = pd.to_numeric(df['kecepatan_angin'], errors='coerce')
+    df['curah_hujan'] = pd.to_numeric(df['curah_hujan'], errors='coerce')
 
     from airflow.providers.postgres.hooks.postgres import PostgresHook
 

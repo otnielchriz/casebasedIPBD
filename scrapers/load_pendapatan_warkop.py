@@ -94,6 +94,15 @@ def load_income_to_postgres(**kwargs):
     df = pd.read_csv(file_path)
 
     # =========================
+    # CLEANING DATE
+    # =========================
+    df['tanggal'] = pd.to_datetime(df['tanggal'], errors='coerce').dt.date
+
+    # cek kalau ada yang gagal parsing
+    if df['tanggal'].isnull().any():
+        raise ValueError("Ada tanggal yang gagal di-parse!")
+
+    # =========================
     # DATABASE CONNECTION
     # =========================
     pg_hook = PostgresHook(postgres_conn_id='postgres_traffic')
