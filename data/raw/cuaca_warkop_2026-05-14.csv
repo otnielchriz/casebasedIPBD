@@ -1,0 +1,25 @@
+waktu,kota,suhu,suhu_terasa,kelembapan,kondisi,deskripsi,kecepatan_angin,curah_hujan,cloudiness
+2026-05-14T00:00,Node_Warkop_Kusuma,24.9,29.5,91,Clouds,Sebagian Berawan,7.9,0.0,28
+2026-05-14T01:00,Node_Warkop_Kusuma,25.0,28.9,89,Clouds,Sebagian Berawan,10.3,0.0,47
+2026-05-14T02:00,Node_Warkop_Kusuma,24.7,28.9,90,Clouds,Sebagian Berawan,8.6,0.0,30
+2026-05-14T03:00,Node_Warkop_Kusuma,24.4,28.7,91,Clouds,Sebagian Berawan,7.9,0.0,24
+2026-05-14T04:00,Node_Warkop_Kusuma,24.3,28.4,91,Clear,Cerah,8.9,0.0,10
+2026-05-14T05:00,Node_Warkop_Kusuma,24.2,28.1,91,Clear,Cerah,9.3,0.0,5
+2026-05-14T06:00,Node_Warkop_Kusuma,24.1,28.0,91,Clouds,Mendung,9.2,0.0,80
+2026-05-14T07:00,Node_Warkop_Kusuma,25.9,30.1,87,Clear,Cerah,10.5,0.0,5
+2026-05-14T08:00,Node_Warkop_Kusuma,27.6,32.0,79,Clouds,Berawan,10.1,0.0,55
+2026-05-14T09:00,Node_Warkop_Kusuma,29.0,33.4,73,Clouds,Berawan,10.4,0.0,66
+2026-05-14T10:00,Node_Warkop_Kusuma,30.1,35.7,70,Clouds,Mendung,10.0,0.0,95
+2026-05-14T11:00,Node_Warkop_Kusuma,31.1,37.7,66,Clouds,Mendung,6.1,0.0,97
+2026-05-14T12:00,Node_Warkop_Kusuma,31.8,39.0,62,Drizzle,Gerimis Ringan,2.2,0.2,93
+2026-05-14T13:00,Node_Warkop_Kusuma,31.9,37.8,59,Drizzle,Gerimis Ringan,5.9,0.2,61
+2026-05-14T14:00,Node_Warkop_Kusuma,29.4,34.9,74,Rain,Hujan Ringan,6.9,1.6,63
+2026-05-14T15:00,Node_Warkop_Kusuma,29.8,34.7,70,Drizzle,Gerimis Sedang,7.3,0.5,43
+2026-05-14T16:00,Node_Warkop_Kusuma,29.2,34.1,72,Drizzle,Gerimis Ringan,7.0,0.1,18
+2026-05-14T17:00,Node_Warkop_Kusuma,28.4,33.5,77,Clouds,Sebagian Berawan,6.6,0.0,27
+2026-05-14T18:00,Node_Warkop_Kusuma,27.4,32.8,84,Clouds,Sebagian Berawan,6.8,0.0,45
+2026-05-14T19:00,Node_Warkop_Kusuma,26.5,32.7,91,Drizzle,Gerimis Ringan,3.4,0.1,30
+2026-05-14T20:00,Node_Warkop_Kusuma,25.9,32.0,94,Clouds,Sebagian Berawan,2.9,0.0,31
+2026-05-14T21:00,Node_Warkop_Kusuma,25.7,31.9,95,Clouds,Berawan,2.7,0.0,77
+2026-05-14T22:00,Node_Warkop_Kusuma,25.6,31.5,95,Clouds,Berawan,5.2,0.0,77
+2026-05-14T23:00,Node_Warkop_Kusuma,25.4,31.0,97,Clouds,Berawan,6.9,0.0,77

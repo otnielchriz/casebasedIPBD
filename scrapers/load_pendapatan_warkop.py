@@ -1,41 +1,46 @@
 import pandas as pd
 import os
+
 from airflow.providers.postgres.hooks.postgres import PostgresHook
+from sqlalchemy import text
 
 
 # =========================
-# 📊 AGREGASI PENDAPATAN HARIAN (FULL RANGE)
+# 📊 AGREGASI PENDAPATAN HARIAN
 # =========================
 def aggregate_income(**kwargs):
 
-    file_path = "/opt/airflow/data/raw/Rincian Penjualan-2026-04-01__2026-05-02.csv"
+    # =========================
+    # FILE CSV TERBARU
+    # =========================
+    file_path = "/opt/airflow/data/raw/Rincian Penjualan-2026-04-01__2026-05-16.csv"
 
     if not os.path.exists(file_path):
         raise FileNotFoundError(file_path)
 
     # =========================
-    # READ DATA (SEMICOLON FORMAT POS)
+    # READ CSV
     # =========================
     df = pd.read_csv(file_path, sep=';')
 
     # =========================
-    # CLEAN COLUMN NAME
+    # CLEAN NAMA KOLOM
     # =========================
     df.columns = df.columns.str.strip().str.lower()
 
     # =========================
-    # FIX DATE FORMAT (PENTING BANGET)
+    # FORMAT TANGGAL
     # =========================
     df['order date'] = pd.to_datetime(
         df['order date'],
-        dayfirst=True,
         errors='coerce'
     )
 
+    # HAPUS TANGGAL INVALID
     df = df.dropna(subset=['order date'])
 
     # =========================
-    # AMBIL TANGGAL SAJA
+    # AMBIL TANGGAL
     # =========================
     df['tanggal'] = df['order date'].dt.date
 
@@ -47,42 +52,57 @@ def aggregate_income(**kwargs):
     else:
         income_col = 'total amount'
 
-    df[income_col] = pd.to_numeric(df[income_col], errors='coerce')
+    # =========================
+    # CLEAN FORMAT ANGKA
+    # =========================
+    df[income_col] = (
+        df[income_col]
+        .astype(str)
+        .str.replace('.', '', regex=False)
+        .str.replace(',', '', regex=False)
+    )
+
+    # CONVERT NUMERIC
+    df[income_col] = pd.to_numeric(
+        df[income_col],
+        errors='coerce'
+    ).fillna(0)
 
     # =========================
     # AGREGASI HARIAN
     # =========================
-    df_daily = df.groupby('tanggal', as_index=False)[income_col].sum()
-
-    df_daily.rename(columns={income_col: 'total_pendapatan'}, inplace=True)
-
-    # =========================
-    # 🔥 INI BAGIAN PENTING: FULL RANGE 1 APR - 2 MEI
-    # =========================
-    full_range = pd.date_range(
-        start="2026-04-01",
-        end="2026-05-02"
+    df_daily = (
+        df.groupby(
+            'tanggal',
+            as_index=False
+        )[income_col]
+        .sum()
     )
 
-    df_daily['tanggal'] = pd.to_datetime(df_daily['tanggal'])
-
-    df_daily = df_daily.set_index('tanggal').reindex(full_range, fill_value=0)
-
-    df_daily = df_daily.reset_index()
-    df_daily.columns = ['tanggal', 'total_pendapatan']
+    # RENAME
+    df_daily.rename(
+        columns={
+            income_col: 'total_pendapatan'
+        },
+        inplace=True
+    )
 
     # =========================
-    # SIMPAN OUTPUT FINAL
+    # SIMPAN CSV
     # =========================
     output_path = "/opt/airflow/data/raw/pendapatan_harian.csv"
 
-    df_daily.to_csv(output_path, index=False)
+    df_daily.to_csv(
+        output_path,
+        index=False
+    )
 
-    print("✅ SUCCESS - FULL DAILY RANGE GENERATED")
+    print("✅ AGREGASI SUCCESS")
     print(df_daily.head())
 
+
 # =========================
-# 📥 LOAD KE POSTGRES
+# 📥 LOAD / UPDATE POSTGRES
 # =========================
 def load_income_to_postgres(**kwargs):
 
@@ -96,20 +116,45 @@ def load_income_to_postgres(**kwargs):
     # =========================
     # CLEANING DATE
     # =========================
-    df['tanggal'] = pd.to_datetime(df['tanggal'], errors='coerce').dt.date
+    df['tanggal'] = pd.to_datetime(
+        df['tanggal'],
+        errors='coerce'
+    ).dt.date
 
-    # cek kalau ada yang gagal parsing
     if df['tanggal'].isnull().any():
         raise ValueError("Ada tanggal yang gagal di-parse!")
 
     # =========================
     # DATABASE CONNECTION
     # =========================
-    pg_hook = PostgresHook(postgres_conn_id='postgres_traffic')
+    pg_hook = PostgresHook(
+        postgres_conn_id='postgres_traffic'
+    )
+
     engine = pg_hook.get_sqlalchemy_engine()
 
     # =========================
-    # LOAD DATA
+    # AMBIL RANGE TANGGAL FILE BARU
+    # =========================
+    start_date = df['tanggal'].min()
+    end_date = df['tanggal'].max()
+
+    # =========================
+    # HAPUS DATA LAMA DI RANGE TERSEBUT
+    # =========================
+    with engine.begin() as conn:
+
+        for tanggal in df['tanggal'].unique():
+
+            conn.execute(text("""
+                DELETE FROM pendapatan_harian
+                WHERE tanggal = :tanggal
+            """), {
+                "tanggal": tanggal
+            })
+
+    # =========================
+    # INSERT DATA BARU
     # =========================
     df.to_sql(
         'pendapatan_harian',
@@ -118,4 +163,4 @@ def load_income_to_postgres(**kwargs):
         index=False
     )
 
-    print("✅ Data pendapatan harian berhasil masuk PostgreSQL")
+    print("✅ Data pendapatan berhasil di-update")
