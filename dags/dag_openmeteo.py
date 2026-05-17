@@ -6,49 +6,57 @@ import os
 import sys
 
 # =========================
-# 🔥 QUICK HACK IMPORT PATH
+# PATH SCRAPER
 # =========================
 SCRAPERS_PATH = '/opt/airflow/scrapers'
 if SCRAPERS_PATH not in sys.path:
     sys.path.insert(0, SCRAPERS_PATH)
 
-# ❗ IMPORT TANPA "scrapers."
-from scrap_weather_ncep import fetch_weather_ncep
+# ⚠️ PASTIKAN INI SESUAI FILE KAMU
+from scrap_weather_ncep import fetch_weather_forecast_and_load
 
 
 # =========================
 # LOAD FUNCTION
 # =========================
 def load_csv_to_postgres(**kwargs):
-    tanggal_eksekusi = kwargs.get('ds') or kwargs['logical_date'].strftime('%Y-%m-%d')
+
+    tanggal_eksekusi = kwargs['logical_date'].strftime('%Y-%m-%d')
 
     file_path = f'/opt/airflow/data/raw/cuaca_warkop_{tanggal_eksekusi}.csv'
 
     if not os.path.exists(file_path):
-        raise FileNotFoundError(f"GAGAL: File {file_path} tidak ditemukan!")
+        raise FileNotFoundError(f"File tidak ditemukan: {file_path}")
 
-    print(f"📂 Membaca data dari {file_path}")
     df = pd.read_csv(file_path)
 
     # =========================
-    # TAMBAHAN FORMAT TIPE DATA
+    # CLEAN DATA TYPES
     # =========================
     df['waktu'] = pd.to_datetime(df['waktu'], errors='coerce')
 
-    df['kelembapan'] = pd.to_numeric(df['kelembapan'], errors='coerce')
-    df['cloudiness'] = pd.to_numeric(df['cloudiness'], errors='coerce')
+    numeric_cols = [
+        'kelembapan',
+        'cloudiness',
+        'suhu',
+        'suhu_terasa',
+        'kecepatan_angin',
+        'curah_hujan'
+    ]
 
-    df['suhu'] = pd.to_numeric(df['suhu'], errors='coerce')
-    df['suhu_terasa'] = pd.to_numeric(df['suhu_terasa'], errors='coerce')
-    df['kecepatan_angin'] = pd.to_numeric(df['kecepatan_angin'], errors='coerce')
-    df['curah_hujan'] = pd.to_numeric(df['curah_hujan'], errors='coerce')
+    for col in numeric_cols:
+        if col in df.columns:
+            df[col] = pd.to_numeric(df[col], errors='coerce')
 
+    # =========================
+    # POSTGRES
+    # =========================
     from airflow.providers.postgres.hooks.postgres import PostgresHook
 
     pg_hook = PostgresHook(postgres_conn_id='postgres_traffic')
     engine = pg_hook.get_sqlalchemy_engine()
 
-    print(f"📊 Insert {len(df)} rows ke PostgreSQL...")
+    print(f"📊 Insert {len(df)} rows ke PostgreSQL")
 
     df.to_sql(
         'cuaca_historis',
@@ -57,7 +65,7 @@ def load_csv_to_postgres(**kwargs):
         index=False
     )
 
-    print("✅ Sukses load data ke PostgreSQL!")
+    print("✅ SUCCESS insert ke cuaca_historis")
 
 
 # =========================
@@ -72,27 +80,29 @@ default_args = {
 with DAG(
     dag_id='weather_historical_catchup',
     default_args=default_args,
-    description='Tarik cuaca harian mulai April 2026',
     schedule='@daily',
     start_date=datetime(2026, 4, 1),
     catchup=True,
-    tags=['cuaca', 'open-meteo', 'etl'],
+    tags=['cuaca', 'etl']
 ) as dag:
 
     # =========================
     # TASK 1: SCRAPE
     # =========================
     task_scrape_weather = PythonOperator(
-        task_id='scrape_weather_daily_task',
-        python_callable=fetch_weather_ncep,
+        task_id='scrape_weather_daily',
+        python_callable=fetch_weather_forecast_and_load,
     )
 
     # =========================
     # TASK 2: LOAD
     # =========================
     task_load_postgres = PythonOperator(
-        task_id='load_to_postgres_task',
+        task_id='load_to_postgres',
         python_callable=load_csv_to_postgres,
     )
 
+    # =========================
+    # DEPENDENCY
+    # =========================
     task_scrape_weather >> task_load_postgres
