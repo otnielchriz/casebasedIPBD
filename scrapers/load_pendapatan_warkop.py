@@ -5,15 +5,12 @@ from airflow.providers.postgres.hooks.postgres import PostgresHook
 from sqlalchemy import text
 
 
-# =========================
-# 📊 AGREGASI PENDAPATAN HARIAN
-# =========================
 def aggregate_income(**kwargs):
 
     # =========================
-    # FILE CSV TERBARU
+    # FILE CSV
     # =========================
-    file_path = "/opt/airflow/data/raw/Rincian Penjualan-2026-04-01__2026-05-16.csv"
+    file_path = "/opt/airflow/data/raw/Rincian Penjualan-2026-05-01__2026-05-31.csv"
 
     if not os.path.exists(file_path):
         raise FileNotFoundError(file_path)
@@ -24,23 +21,25 @@ def aggregate_income(**kwargs):
     df = pd.read_csv(file_path, sep=';')
 
     # =========================
-    # CLEAN NAMA KOLOM
+    # CLEAN COLUMN NAME
     # =========================
     df.columns = df.columns.str.strip().str.lower()
 
     # =========================
-    # FORMAT TANGGAL
+    # PARSE DATE
     # =========================
-    df['order date'] = pd.to_datetime(
-        df['order date'],
-        errors='coerce'
-    )
+    df['order date'] = pd.to_datetime(df['order date'], errors='coerce')
 
-    # HAPUS TANGGAL INVALID
     df = df.dropna(subset=['order date'])
 
     # =========================
-    # AMBIL TANGGAL
+    # 🔥 FILTER BULAN TERBARU ONLY
+    # =========================
+    latest_month = df['order date'].dt.to_period('M').max()
+    df = df[df['order date'].dt.to_period('M') == latest_month]
+
+    # =========================
+    # CREATE TANGGAL
     # =========================
     df['tanggal'] = df['order date'].dt.date
 
@@ -53,7 +52,7 @@ def aggregate_income(**kwargs):
         income_col = 'total amount'
 
     # =========================
-    # CLEAN FORMAT ANGKA
+    # CLEAN NUMBER FORMAT
     # =========================
     df[income_col] = (
         df[income_col]
@@ -62,96 +61,68 @@ def aggregate_income(**kwargs):
         .str.replace(',', '', regex=False)
     )
 
-    # CONVERT NUMERIC
-    df[income_col] = pd.to_numeric(
-        df[income_col],
-        errors='coerce'
-    ).fillna(0)
+    df[income_col] = pd.to_numeric(df[income_col], errors='coerce').fillna(0)
 
     # =========================
-    # AGREGASI HARIAN
+    # AGGREGATE HARIAN
     # =========================
-    df_daily = (
-        df.groupby(
-            'tanggal',
-            as_index=False
-        )[income_col]
-        .sum()
-    )
+    df_daily = df.groupby('tanggal', as_index=False)[income_col].sum()
 
-    # RENAME
-    df_daily.rename(
-        columns={
-            income_col: 'total_pendapatan'
-        },
-        inplace=True
-    )
+    df_daily.rename(columns={income_col: 'total_pendapatan'}, inplace=True)
 
     # =========================
-    # SIMPAN CSV
+    # SAVE CLEAN FILE (ONLY CURRENT MONTH)
     # =========================
     output_path = "/opt/airflow/data/raw/pendapatan_harian.csv"
+    df_daily.to_csv(output_path, index=False)
 
-    df_daily.to_csv(
-        output_path,
-        index=False
-    )
-
-    print("✅ AGREGASI SUCCESS")
+    print("✅ AGGREGATE SUCCESS (ONLY LATEST MONTH)")
     print(df_daily.head())
 
 
-# =========================
-# 📥 LOAD / UPDATE POSTGRES
-# =========================
 def load_income_to_postgres(**kwargs):
 
     file_path = "/opt/airflow/data/raw/pendapatan_harian.csv"
 
     if not os.path.exists(file_path):
-        raise FileNotFoundError(f"File tidak ditemukan: {file_path}")
+        raise FileNotFoundError(file_path)
 
     df = pd.read_csv(file_path)
 
     # =========================
-    # CLEANING DATE
+    # CLEAN DATE
     # =========================
-    df['tanggal'] = pd.to_datetime(
-        df['tanggal'],
-        errors='coerce'
-    ).dt.date
+    df['tanggal'] = pd.to_datetime(df['tanggal'], errors='coerce').dt.date
 
     if df['tanggal'].isnull().any():
-        raise ValueError("Ada tanggal yang gagal di-parse!")
+        raise ValueError("Ada tanggal invalid di data!")
 
     # =========================
     # DATABASE CONNECTION
     # =========================
-    pg_hook = PostgresHook(
-        postgres_conn_id='postgres_traffic'
-    )
-
+    pg_hook = PostgresHook(postgres_conn_id='postgres_traffic')
     engine = pg_hook.get_sqlalchemy_engine()
 
     # =========================
-    # AMBIL RANGE TANGGAL FILE BARU
+    # AMBIL BULAN DARI DATA
     # =========================
-    start_date = df['tanggal'].min()
-    end_date = df['tanggal'].max()
+    sample_date = df['tanggal'].iloc[0]
 
     # =========================
-    # HAPUS DATA LAMA DI RANGE TERSEBUT
+    # 🔥 DELETE 1 BULAN SEKALIGUS (ANTI DUPLICATE)
     # =========================
     with engine.begin() as conn:
+        conn.execute(text("""
+            DELETE FROM pendapatan_harian
+            WHERE DATE_TRUNC('month', tanggal) = DATE_TRUNC('month', :tanggal)
+        """), {
+            "tanggal": sample_date
+        })
 
-        for tanggal in df['tanggal'].unique():
-
-            conn.execute(text("""
-                DELETE FROM pendapatan_harian
-                WHERE tanggal = :tanggal
-            """), {
-                "tanggal": tanggal
-            })
+    # =========================
+    # DROP DUPLICATE DI DATAFRAME (SAFETY)
+    # =========================
+    df = df.drop_duplicates(subset=['tanggal'], keep='last')
 
     # =========================
     # INSERT DATA BARU
@@ -163,4 +134,4 @@ def load_income_to_postgres(**kwargs):
         index=False
     )
 
-    print("✅ Data pendapatan berhasil di-update")
+    print("✅ SUCCESS: BULAN TERBARU LOADED + OLD MONTH OVERWRITTEN")
