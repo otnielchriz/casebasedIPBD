@@ -21,9 +21,7 @@ from scrap_weather_ncep import fetch_weather_forecast_and_load
 # =========================
 def load_csv_to_postgres(**kwargs):
 
-    tanggal_eksekusi = kwargs['logical_date'].strftime('%Y-%m-%d')
-
-    file_path = f'/opt/airflow/data/raw/cuaca_warkop_{tanggal_eksekusi}.csv'
+    file_path = '/opt/airflow/data/raw/cuaca_warkop.csv'
 
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"File tidak ditemukan: {file_path}")

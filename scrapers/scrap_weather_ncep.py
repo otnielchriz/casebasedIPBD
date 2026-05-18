@@ -99,20 +99,41 @@ def fetch_weather_forecast_and_load(**kwargs):
     # =========================
     df["waktu"] = pd.to_datetime(df["waktu"]).dt.strftime("%Y-%m-%dT%H:%M")
 
-    # =========================
-    # SAVE CSV (1 FILE)
-    # =========================
+# =========================
+# SAVE CSV (1 FILE UPDATE)
+# =========================
     folder = "/opt/airflow/data/raw"
     os.makedirs(folder, exist_ok=True)
 
-    file_path = os.path.join(
-        folder,
-        f"cuaca_warkop_{start_date_str}_to_{end_date_str}.csv"
-    )
+    file_path = os.path.join(folder, "cuaca_warkop.csv")
 
-    df.to_csv(file_path, index=False)
+    # kalau file sudah ada -> merge
+    if os.path.exists(file_path):
 
-    print("💾 CSV saved:", file_path)
+        df_lama = pd.read_csv(file_path)
+
+        # gabungkan
+        df_gabungan = pd.concat([df_lama, df], ignore_index=True)
+
+        # hapus duplicate berdasarkan waktu
+        df_gabungan = df_gabungan.drop_duplicates(
+            subset=["waktu"],
+            keep="last"
+        )
+
+        # urutkan waktu
+        df_gabungan = df_gabungan.sort_values("waktu")
+
+        # save ulang
+        df_gabungan.to_csv(file_path, index=False)
+
+        print("♻️ CSV updated:", file_path)
+
+    else:
+        # kalau belum ada
+        df.to_csv(file_path, index=False)
+
+        print("💾 CSV created:", file_path)
 
     # =========================
     # POSTGRES
