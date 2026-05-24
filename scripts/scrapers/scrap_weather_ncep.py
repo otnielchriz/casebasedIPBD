@@ -3,15 +3,8 @@ import pandas as pd
 import os
 from datetime import datetime, timedelta
 
-from airflow.providers.postgres.hooks.postgres import PostgresHook
-from sqlalchemy import text
 
-
-def fetch_weather_forecast_and_load(**kwargs):
-
-    # =========================
-    # RANGE 14 HARI
-    # =========================
+def fetch_weather_forecast_to_csv(**kwargs):
     start_date = datetime.today().date()
     end_date = start_date + timedelta(days=14)
 
@@ -22,9 +15,6 @@ def fetch_weather_forecast_and_load(**kwargs):
     LON = 110.8379588
     KOTA = "Node_Warkop_Kusuma"
 
-    # =========================
-    # API
-    # =========================
     url = "https://api.open-meteo.com/v1/forecast"
 
     params = {
@@ -50,9 +40,6 @@ def fetch_weather_forecast_and_load(**kwargs):
 
     hourly = data["hourly"]
 
-    # =========================
-    # WMO MAP (kondisi + deskripsi)
-    # =========================
     wmo = {
         0: ("Clear", "Cerah"),
         1: ("Clouds", "Sebagian Berawan"),
@@ -78,9 +65,6 @@ def fetch_weather_forecast_and_load(**kwargs):
         for code in hourly["weather_code"]
     ]
 
-    # =========================
-    # DATAFRAME FINAL (SESUAI CONTOH KAMU)
-    # =========================
     df = pd.DataFrame({
         "waktu": hourly["time"],
         "kota": KOTA,
@@ -94,74 +78,31 @@ def fetch_weather_forecast_and_load(**kwargs):
         "cloudiness": hourly["cloud_cover"]
     })
 
-    # =========================
-    # FORMAT TIME BIAR SAMA KAYAK CONTOH
-    # =========================
     df["waktu"] = pd.to_datetime(df["waktu"]).dt.strftime("%Y-%m-%dT%H:%M")
 
-# =========================
-# SAVE CSV (1 FILE UPDATE)
-# =========================
     folder = "/opt/airflow/data/raw"
     os.makedirs(folder, exist_ok=True)
 
     file_path = os.path.join(folder, "cuaca_warkop.csv")
 
-    # kalau file sudah ada -> merge
     if os.path.exists(file_path):
-
         df_lama = pd.read_csv(file_path)
 
-        # gabungkan
         df_gabungan = pd.concat([df_lama, df], ignore_index=True)
 
-        # hapus duplicate berdasarkan waktu
         df_gabungan = df_gabungan.drop_duplicates(
             subset=["waktu"],
             keep="last"
         )
 
-        # urutkan waktu
         df_gabungan = df_gabungan.sort_values("waktu")
 
-        # save ulang
         df_gabungan.to_csv(file_path, index=False)
 
-        print("♻️ CSV updated:", file_path)
+        print("CSV updated:", file_path)
 
     else:
-        # kalau belum ada
         df.to_csv(file_path, index=False)
+        print("CSV created:", file_path)
 
-        print("💾 CSV created:", file_path)
-
-    # =========================
-    # POSTGRES
-    # =========================
-    pg_hook = PostgresHook(postgres_conn_id="postgres_traffic")
-    engine = pg_hook.get_sqlalchemy_engine()
-
-    # =========================
-    # DELETE RANGE (ANTI DUPLICATE)
-    # =========================
-    with engine.begin() as conn:
-        conn.execute(text("""
-            DELETE FROM cuaca_historis
-            WHERE waktu BETWEEN :start AND :end
-        """), {
-            "start": start_date,
-            "end": end_date + timedelta(days=1)
-        })
-
-    # =========================
-    # INSERT DB
-    # =========================
-    df.to_sql(
-        "cuaca_historis",
-        con=engine,
-        if_exists="append",
-        index=False
-    )
-
-    print("🚀 SUCCESS insert ke DB")
     print(df.head())

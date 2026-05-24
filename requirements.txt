@@ -10,3 +10,7 @@ pandas
 # Kebutuhan Database Airflow & ETL
 psycopg2-binary
 sqlalchemy
+
+kafka-python
+psycopg2-binary
+requests
