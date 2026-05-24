@@ -22,17 +22,16 @@ default_args = {
 }
 
 # ============================================================
-# DAG 1: REAL-TIME STREAM MODE (production)
-# Run setiap 5 menit, ambil data current weather dari OWM Current API
+# DAG 1: [DEPRECATED] REAL-TIME STREAM MODE (production)
 # ============================================================
 with DAG(
     dag_id='weather_stream_owm',
     default_args=default_args,
-    description='Real-time cuaca via OpenWeatherMap Current API (every 5 min)',
-    schedule='*/5 * * * *',  # Setiap 5 menit — real-time
+    description='[DEPRECATED - Ganti Kafka] Real-time cuaca via OWM',
+    schedule=None,  # Deprecated: tidak lagi dijadwalkan setiap 5 menit
     start_date=datetime(2026, 4, 1),
-    catchup=False,  # Tidak perlu backfill di mode real-time
-    tags=['cuaca', 'etl', 'stream', 'realtime', 'openweathermap'],
+    catchup=False,  
+    tags=['cuaca', 'etl', 'deprecated'],
 ) as dag:
 
     task_stream = PythonOperator(

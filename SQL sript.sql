@@ -102,4 +102,11 @@ LEFT JOIN hari_libur h
 LEFT JOIN v_cuaca_harian c
     ON p.tanggal = c.tanggal;
 
-select * from v_analisis_warkop
+select * from v_analisis_warkop;
+
+-- View untuk data cuaca terurut (siap pakai di Metabase tanpa menulis SQL tambahan)
+CREATE OR REPLACE VIEW v_cuaca_historis_urut AS
+SELECT * FROM cuaca_historis 
+ORDER BY waktu ASC;
+
+select * from v_cuaca_historis_urut;

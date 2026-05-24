@@ -1,0 +1,12 @@
+FROM apache/spark:3.5.1
+
+USER root
+
+# Install dependencies required by the weather consumer script
+RUN pip install --no-cache-dir pandas sqlalchemy psycopg2-binary kafka-python
+
+# Set working directory inside the container
+WORKDIR /opt/airflow
+
+# Switch back to the non-root spark user
+USER spark
