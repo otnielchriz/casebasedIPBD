@@ -28,6 +28,7 @@ def load_csv_to_postgres(**kwargs):
     df["waktu"] = pd.to_datetime(df["waktu"], errors="coerce")
 
     numeric_cols = [
+        "weather_code",
         "kelembapan",
         "cloudiness",
         "suhu",
@@ -35,7 +36,6 @@ def load_csv_to_postgres(**kwargs):
         "kecepatan_angin",
         "curah_hujan"
     ]
-
     for col in numeric_cols:
         df[col] = pd.to_numeric(df[col], errors="coerce")
 
@@ -49,7 +49,7 @@ def load_csv_to_postgres(**kwargs):
 
     with engine.begin() as conn:
         conn.execute(text("""
-            DELETE FROM cuaca_historis
+            DELETE FROM cuaca_forecast
             WHERE waktu BETWEEN :start_time AND :end_time
         """), {
             "start_time": start_time,
@@ -57,13 +57,13 @@ def load_csv_to_postgres(**kwargs):
         })
 
     df.to_sql(
-        "cuaca_historis",
+        "cuaca_forecast",
         con=engine,
         if_exists="append",
         index=False
     )
 
-    print(f"SUCCESS insert {len(df)} rows ke cuaca_historis")
+    print(f"SUCCESS insert {len(df)} rows ke cuaca_forecast")
     print(f"Range data: {start_time} sampai {end_time}")
 
 

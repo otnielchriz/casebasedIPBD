@@ -40,41 +40,23 @@ def fetch_weather_forecast_to_csv(**kwargs):
 
     hourly = data["hourly"]
 
-    wmo = {
-        0: ("Clear", "Cerah"),
-        1: ("Clouds", "Sebagian Berawan"),
-        2: ("Clouds", "Berawan"),
-        3: ("Clouds", "Mendung"),
-        45: ("Fog", "Berkabut"),
-        48: ("Fog", "Kabut"),
-        51: ("Drizzle", "Gerimis"),
-        61: ("Rain", "Hujan Ringan"),
-        63: ("Rain", "Hujan Sedang"),
-        65: ("Rain", "Hujan Lebat"),
-        80: ("Rain", "Hujan Lokal"),
-        95: ("Thunderstorm", "Badai Petir")
-    }
-
-    kondisi = [
-        wmo.get(code, ("Unknown", "Tidak Diketahui"))[0]
-        for code in hourly["weather_code"]
-    ]
-
-    deskripsi = [
-        wmo.get(code, ("Unknown", "Tidak Diketahui"))[1]
-        for code in hourly["weather_code"]
-    ]
-
     df = pd.DataFrame({
         "waktu": hourly["time"],
+
         "kota": KOTA,
+
+        "weather_code": hourly["weather_code"],
+
         "suhu": hourly["temperature_2m"],
+
         "suhu_terasa": hourly["apparent_temperature"],
+
         "kelembapan": hourly["relative_humidity_2m"],
-        "kondisi": kondisi,
-        "deskripsi": deskripsi,
+
         "kecepatan_angin": hourly["wind_speed_10m"],
+
         "curah_hujan": hourly["precipitation"],
+
         "cloudiness": hourly["cloud_cover"]
     })
 
