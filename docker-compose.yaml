@@ -84,6 +84,9 @@ x-airflow-common:
     - ${AIRFLOW_PROJ_DIR:-.}/scrapers:/opt/airflow/scrapers
     - ${AIRFLOW_PROJ_DIR:-.}/data:/opt/airflow/data
   user: "${AIRFLOW_UID:-50000}:0"
+  networks:
+    - orchestration-net
+    - streaming-net
   depends_on:
     &airflow-common-depends-on
     redis:
@@ -104,6 +107,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+    networks:
+      - bi-net
     restart: always
 
   postgres:
@@ -121,6 +126,10 @@ services:
       interval: 10s
       retries: 5
       start_period: 5s
+    networks:
+      - orchestration-net
+      - streaming-net
+      - bi-net
     restart: always
 
   redis:
@@ -135,6 +144,8 @@ services:
       timeout: 30s
       retries: 50
       start_period: 30s
+    networks:
+      - orchestration-net
     restart: always
 
   airflow-apiserver:
@@ -303,6 +314,15 @@ services:
         echo "Files in shared volumes:"
         echo
         ls -la /opt/airflow/{logs,dags,plugins,config}
+        echo
+        echo "Creating read-only viewer user..."
+        /entrypoint airflow users create \
+            --username viewer \
+            --password viewerpass \
+            --role Viewer \
+            --firstname Viewer \
+            --lastname User \
+            --email viewer@example.com || true
 
     # yamllint enable rule:line-length
     environment:
@@ -359,6 +379,8 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
     ports:
       - "2181:2181"
+    networks:
+      - streaming-net
     restart: always
 
   kafka:
@@ -377,6 +399,8 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
     depends_on:
       - zookeeper
+    networks:
+      - streaming-net
     restart: always
 
   spark-pyspark:
@@ -391,7 +415,17 @@ services:
       - ${AIRFLOW_PROJ_DIR:-.}/data:/opt/airflow/data
     ports:
       - "4040:4040"
+    networks:
+      - streaming-net
     restart: always
+
+networks:
+  orchestration-net:
+    driver: bridge
+  streaming-net:
+    driver: bridge
+  bi-net:
+    driver: bridge
 
 volumes:
   postgres-db-volume:
