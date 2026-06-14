@@ -6,7 +6,7 @@ from sqlalchemy import text
 
 
 def aggregate_income(**kwargs):
-    file_path = "/opt/airflow/data/raw/Rincian Penjualan-2026-04-01__2026-04-30.csv"
+    file_path = "/opt/airflow/data/raw/Rincian Penjualan-2026-06-01__2026-06-30.csv"
 
     if not os.path.exists(file_path):
         raise FileNotFoundError(file_path)
