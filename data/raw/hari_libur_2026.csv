@@ -45,7 +45,7 @@ tanggal,nama_hari,is_libur,is_weekend,is_libur_nasional,is_cuti_bersama,keterang
 2026-02-13,Jumat,True,True,False,False,Akhir Pekan (Jumat)
 2026-02-14,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
 2026-02-15,Minggu,True,True,False,False,Akhir Pekan (Minggu)
-2026-02-16,Senin,True,False,True,True,Cuti Bersama Tahun Baru Imlek
+2026-02-16,Senin,True,False,False,True,Cuti Bersama Tahun Baru Imlek
 2026-02-17,Selasa,True,False,True,False,Tahun Baru Imlek 2577
 2026-02-18,Rabu,False,False,False,False,
 2026-02-19,Kamis,False,False,False,False,
@@ -75,13 +75,13 @@ tanggal,nama_hari,is_libur,is_weekend,is_libur_nasional,is_cuti_bersama,keterang
 2026-03-15,Minggu,True,True,False,False,Akhir Pekan (Minggu)
 2026-03-16,Senin,False,False,False,False,
 2026-03-17,Selasa,False,False,False,False,
-2026-03-18,Rabu,True,False,True,True,Cuti Bersama Nyepi
+2026-03-18,Rabu,True,False,False,True,Cuti Bersama Nyepi
 2026-03-19,Kamis,True,False,True,False,Hari Suci Nyepi
-2026-03-20,Jumat,True,True,True,True,Cuti Bersama Idul Fitri
+2026-03-20,Jumat,True,True,False,True,Cuti Bersama Idul Fitri
 2026-03-21,Sabtu,True,True,True,False,Idul Fitri 1447 H (Hari 1)
 2026-03-22,Minggu,True,True,True,False,Idul Fitri 1447 H (Hari 2)
-2026-03-23,Senin,True,False,True,True,Cuti Bersama Idul Fitri
-2026-03-24,Selasa,True,False,True,True,Cuti Bersama Idul Fitri
+2026-03-23,Senin,True,False,False,True,Cuti Bersama Idul Fitri
+2026-03-24,Selasa,True,False,False,True,Cuti Bersama Idul Fitri
 2026-03-25,Rabu,False,False,False,False,
 2026-03-26,Kamis,False,False,False,False,
 2026-03-27,Jumat,True,True,False,False,Akhir Pekan (Jumat)
@@ -133,7 +133,7 @@ tanggal,nama_hari,is_libur,is_weekend,is_libur_nasional,is_cuti_bersama,keterang
 2026-05-12,Selasa,False,False,False,False,
 2026-05-13,Rabu,False,False,False,False,
 2026-05-14,Kamis,True,False,True,False,Kenaikan Yesus Kristus
-2026-05-15,Jumat,True,True,True,True,Cuti Bersama Kenaikan Yesus Kristus
+2026-05-15,Jumat,True,True,False,True,Cuti Bersama Kenaikan Yesus
 2026-05-16,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
 2026-05-17,Minggu,True,True,False,False,Akhir Pekan (Minggu)
 2026-05-18,Senin,False,False,False,False,
@@ -146,7 +146,7 @@ tanggal,nama_hari,is_libur,is_weekend,is_libur_nasional,is_cuti_bersama,keterang
 2026-05-25,Senin,False,False,False,False,
 2026-05-26,Selasa,False,False,False,False,
 2026-05-27,Rabu,True,False,True,False,Idul Adha 1447 H
-2026-05-28,Kamis,True,False,True,True,Cuti Bersama Idul Adha
+2026-05-28,Kamis,True,False,False,True,Cuti Bersama Idul Adha
 2026-05-29,Jumat,True,True,False,False,Akhir Pekan (Jumat)
 2026-05-30,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
 2026-05-31,Minggu,True,True,True,False,Hari Raya Waisak 2570 BE
@@ -356,7 +356,7 @@ tanggal,nama_hari,is_libur,is_weekend,is_libur_nasional,is_cuti_bersama,keterang
 2026-12-21,Senin,False,False,False,False,
 2026-12-22,Selasa,False,False,False,False,
 2026-12-23,Rabu,False,False,False,False,
-2026-12-24,Kamis,True,False,True,True,Cuti Bersama Natal
+2026-12-24,Kamis,True,False,False,True,Cuti Bersama Natal
 2026-12-25,Jumat,True,True,True,False,Hari Raya Natal
 2026-12-26,Sabtu,True,True,False,False,Akhir Pekan (Sabtu)
 2026-12-27,Minggu,True,True,False,False,Akhir Pekan (Minggu)
