@@ -116,7 +116,12 @@ def generate_kalender(tahun: int, data_libur: dict) -> pd.DataFrame:
 # KONEKSI POSTGRES
 # =========================
 
-def get_engine():
+def get_engine(use_airflow=False):
+    if use_airflow:
+        from airflow.providers.postgres.hooks.postgres import PostgresHook
+        pg_hook = PostgresHook(postgres_conn_id="postgres_traffic")
+        return pg_hook.get_sqlalchemy_engine()
+
     from sqlalchemy import create_engine
 
     user = os.getenv("DB_USER", "airflow")
@@ -189,7 +194,7 @@ def load_to_postgres(df: pd.DataFrame, engine):
 
 
 # =========================
-# MAIN
+# MAIN & AIRFLOW ENTRYPOINT
 # =========================
 
 def main():
@@ -211,6 +216,27 @@ def main():
     load_to_postgres(final_df, engine)
 
     print("Selesai: CSV 2025 & 2026 sudah dibuat dan masuk PostgreSQL.")
+
+
+def run_holiday_etl_airflow():
+    engine = get_engine(use_airflow=True)
+
+    create_table_if_not_exists(engine)
+
+    all_df = []
+
+    for tahun, data_libur in DATA_PER_TAHUN.items():
+        df = generate_kalender(tahun, data_libur)
+
+        save_csv(df, tahun)
+
+        all_df.append(df)
+
+    final_df = pd.concat(all_df, ignore_index=True)
+
+    load_to_postgres(final_df, engine)
+
+    print("Selesai: Kalender sudah dibuat dan dimasukkan ke PostgreSQL via Airflow.")
 
 
 if __name__ == "__main__":
