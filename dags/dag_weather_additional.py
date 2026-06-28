@@ -6,7 +6,7 @@ import sys
 # =========================
 # PATH SCRAPER
 # =========================
-SCRAPERS_PATH = '/opt/airflow/scrapers'
+SCRAPERS_PATH = '/opt/airflow/scripts/scrapers'
 if SCRAPERS_PATH not in sys.path:
     sys.path.insert(0, SCRAPERS_PATH)
 

@@ -10,7 +10,7 @@ from kafka import KafkaProducer
 # =========================
 LAT = -7.7073187
 LON = 110.8379588
-KAFKA_BROKER = 'kafka:9092' # Nama service docker
+KAFKA_BROKER = 'kafka:29092' # Nama service docker
 TOPIC_NAME = 'weather_stream'
 API_URL = "https://api.openweathermap.org/data/2.5/weather"
 

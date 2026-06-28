@@ -8,7 +8,7 @@ from sqlalchemy import create_engine, text
 # =========================
 # CONFIG KONEKSI
 # =========================
-KAFKA_BROKER = "kafka:9092"
+KAFKA_BROKER = "kafka:29092"
 TOPIC_NAME = "weather_stream"
 DB_URL = "postgresql+psycopg2://airflow:airflow@postgres/airflow"
 TABLE_NAME = "cuaca_historis"

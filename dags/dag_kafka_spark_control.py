@@ -34,7 +34,7 @@ with DAG(
     # Menjalankan script Kafka Producer sebagai background process (daemon)
     start_producer = BashOperator(
         task_id='start_kafka_producer',
-        bash_command='nohup python /opt/airflow/scrapers/kafka_producer_weather.py > /opt/airflow/logs/kafka_producer.log 2>&1 & echo "Producer started in background!"'
+        bash_command='nohup python /opt/airflow/scripts/scrapers/kafka_producer_weather.py > /opt/airflow/logs/kafka_producer.log 2>&1 & echo "Producer started in background!"'
     )
 
     # Karena PySpark menggunakan kontainer `bitnami/spark:3.4` yang terpisah,
