@@ -37,18 +37,19 @@ with DAG(
         bash_command='nohup python /opt/airflow/scripts/scrapers/kafka_producer_weather.py > /opt/airflow/logs/kafka_producer.log 2>&1 & echo "Producer started in background!"'
     )
 
-    # Karena PySpark menggunakan kontainer `bitnami/spark:3.4` yang terpisah,
-    # Eksekusi Consumer sebaiknya dijalankan di dalam kontainer Spark tersebut.
-    # BashOperator ini berfungsi mengirimkan sinyal eksekusi ke kontainer Spark (jika docker ada di env host,
-    # namun karena ini dalam docker network, kita instruksikan user).
-    # Namun jika Airflow Worker memiliki java, kita bisa menjalankannya juga.
-    start_consumer_instruction = BashOperator(
+    def start_consumer_via_api():
+        import requests
+        try:
+            print("📡 Mengirim request untuk menjalankan PySpark Consumer...")
+            res = requests.post("http://warkop_pyspark:5000/start", timeout=15)
+            print(f"Response: {res.text}")
+        except Exception as e:
+            print(f"❌ Gagal memicu Spark Consumer melalui API: {e}")
+            raise e
+
+    start_consumer = PythonOperator(
         task_id='start_pyspark_consumer',
-        bash_command='''
-        echo "Untuk menyalakan PySpark Consumer, buka terminal lokal Anda dan jalankan:"
-        echo "docker exec -it warkop_pyspark /opt/spark/bin/spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.1 /opt/airflow/scrapers/pyspark_consumer_weather.py"
-        echo "Lalu pantau hasilnya di http://localhost:4040"
-        '''
+        python_callable=start_consumer_via_api
     )
 
-    instruction_task >> start_producer >> start_consumer_instruction
+    instruction_task >> start_producer >> start_consumer

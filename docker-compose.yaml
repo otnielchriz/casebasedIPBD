@@ -410,12 +410,14 @@ services:
       dockerfile: Dockerfile.spark
     container_name: warkop_pyspark
     user: root
-    command: tail -f /dev/null
+    command: python3 /opt/airflow/scrapers/spark_api.py
     volumes:
       - ${AIRFLOW_PROJ_DIR:-.}/scripts/scrapers:/opt/airflow/scrapers
       - ${AIRFLOW_PROJ_DIR:-.}/data:/opt/airflow/data
+      - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
     ports:
       - "4040:4040"
+      - "5000:5000"
     networks:
       - streaming-net
     restart: always

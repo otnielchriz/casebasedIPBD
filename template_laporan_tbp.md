@@ -221,9 +221,7 @@ python scripts/scrapers/setup_db_rbac.py
 
 #### 3.3.2 Cara Menguji Pipeline Streaming
 Untuk menguji pipeline cuaca real-time 10 detik:
-1.  Buka Airflow Web UI (`http://localhost:8080`) dan jalankan DAG `kafka_spark_streaming_control` secara manual untuk menyalakan background producer.
-2.  Jalankan Spark consumer di dalam kontainer Spark dengan perintah:
-    ```bash
-    docker exec -it warkop_pyspark /opt/spark/bin/spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.1 /opt/airflow/scrapers/pyspark_consumer_weather.py
-    ```
-3.  Pantau jalannya komputasi Spark streaming di browser: `http://localhost:4040`.
+1.  Buka Airflow Web UI (`http://localhost:8080`) dan aktifkan serta jalankan DAG **`kafka_spark_streaming_control`** secara manual dengan sekali klik (Trigger DAG).
+2.  DAG tersebut akan otomatis menyalakan background Producer di kontainer Airflow, sekaligus mengirimkan perintah HTTP untuk menjalankan PySpark Structured Streaming Consumer secara otomatis di dalam kontainer Spark.
+3.  Pantau jalannya komputasi Spark streaming di browser: `http://localhost:4040` (Spark UI).
+4.  *(Opsional)* Anda juga dapat memantau log streaming secara langsung dari host machine di dalam folder `logs/spark_consumer.log` dan `logs/spark_consumer_err.log`.
