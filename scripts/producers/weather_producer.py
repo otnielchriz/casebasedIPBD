@@ -1,3 +1,8 @@
+# ==============================================================================
+# ⚠️ DEPRECATED (10-Minute Interval Scraper)
+# Gunakan scripts/scrapers/kafka_producer_weather.py dengan interval 10 detik
+# ==============================================================================
+
 import json
 import time
 import requests
