@@ -1,3 +1,4 @@
+from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from datetime import datetime, timedelta
@@ -26,7 +27,7 @@ with DAG(
     dag_id="pendapatan_warkop_pipeline",
     default_args=default_args,
     start_date=datetime(2026, 5, 1),
-    schedule="@daily",
+    schedule=None,
     catchup=False,
     tags=["ipbd", "pendapatan", "etl"],
 ) as dag:
@@ -41,4 +42,10 @@ with DAG(
         python_callable=load_income_to_postgres,
     )
 
-    task_aggregate_income >> task_load_income
+    trigger_ml_pipeline = TriggerDagRunOperator(
+        task_id="trigger_ml_pipeline",
+        trigger_dag_id="ml_pipeline",
+        wait_for_completion=False,
+    )
+
+    task_aggregate_income >> task_load_income >> trigger_ml_pipeline
