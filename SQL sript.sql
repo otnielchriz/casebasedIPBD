@@ -88,7 +88,6 @@ GROUP BY waktu::date;
 
 
 -- ========= VIEW ML ===========
-DROP VIEW IF EXISTS vw_dataset_ml;
 
 
 CREATE VIEW vw_dataset_ml AS
@@ -181,8 +180,7 @@ ORDER BY tanggal_prediksi asc;
 
 
 
-DROP TABLE IF EXISTS prediksi_pendapatan_history;
-
+-- Histori Prediksi Pendapatan
 CREATE TABLE prediksi_pendapatan_history (
     id SERIAL PRIMARY KEY,
     tanggal_generate DATE NOT NULL,
@@ -196,7 +194,7 @@ SELECT *
 FROM prediksi_pendapatan_history
 ORDER BY tanggal_prediksi asc;
 
-delete prediksi_pendapatan_history
+
 
 
 CREATE TABLE IF NOT EXISTS ml_model_metrics (
