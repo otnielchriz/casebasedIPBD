@@ -67,10 +67,13 @@ def load_csv_to_postgres(**kwargs):
     print(f"Range data: {start_time} sampai {end_time}")
 
 
+from telegram_alert import send_telegram_alert
+
 default_args = {
     "owner": "zaki",
     "retries": 2,
     "retry_delay": timedelta(minutes=2),
+    "on_failure_callback": send_telegram_alert,
 }
 
 

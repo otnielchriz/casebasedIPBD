@@ -10,7 +10,9 @@ pandas
 # Kebutuhan Database Airflow & ETL
 psycopg2-binary
 sqlalchemy
-
 kafka-python
-psycopg2-binary
-requests
+
+# Observability & Data Governance
+prometheus-client
+great_expectations
+apache-airflow-providers-telegram

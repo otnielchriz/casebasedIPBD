@@ -62,7 +62,7 @@ x-airflow-common:
     AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
     AIRFLOW__CORE__FERNET_KEY: ''
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
-    AIRFLOW__CORE__LOAD_EXAMPLES: 'true'
+    AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
     AIRFLOW__CORE__EXECUTION_API_SERVER_URL: 'http://airflow-apiserver:8080/execution/'
     AIRFLOW__API_AUTH__JWT_SECRET: ${AIRFLOW__API_AUTH__JWT_SECRET:-airflow_jwt_secret}
     AIRFLOW__API_AUTH__JWT_ISSUER: ${AIRFLOW__API_AUTH__JWT_ISSUER:-airflow}
@@ -71,6 +71,10 @@ x-airflow-common:
     # See https://airflow.apache.org/docs/apache-airflow/stable/administration-and-deployment/logging-monitoring/check-health.html#scheduler-health-check-server
     # yamllint enable rule:line-length
     AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: 'true'
+    AIRFLOW__METRICS__STATSD_ON: 'True'
+    AIRFLOW__METRICS__STATSD_HOST: 'statsd-exporter'
+    AIRFLOW__METRICS__STATSD_PORT: '8125'
+    AIRFLOW__METRICS__STATSD_PREFIX: 'airflow'
     # WARNING: Use _PIP_ADDITIONAL_REQUIREMENTS option ONLY for a quick checks
     # for other purpose (development, test and especially production usage) build/extend Airflow image.
     _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
@@ -420,6 +424,67 @@ services:
       - "5000:5000"
     networks:
       - streaming-net
+    restart: always
+
+  statsd-exporter:
+    image: prom/statsd-exporter:v0.24.0
+    container_name: warkop_statsd_exporter
+    ports:
+      - "9102:9102"
+      - "8125:8125/udp"
+    networks:
+      - orchestration-net
+      - streaming-net
+    restart: always
+
+  prometheus:
+    image: prom/prometheus:v2.45.0
+    container_name: warkop_prometheus
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - orchestration-net
+      - streaming-net
+    restart: always
+
+  loki:
+    image: grafana/loki:2.9.2
+    container_name: warkop_loki
+    volumes:
+      - ./config/loki-config.yml:/etc/loki/local-config.yaml
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - orchestration-net
+      - streaming-net
+    restart: always
+
+  promtail:
+    image: grafana/promtail:2.9.2
+    container_name: warkop_promtail
+    volumes:
+      - ./config/promtail-config.yml:/etc/promtail/config.yml
+      - ./logs:/opt/airflow/logs
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      - orchestration-net
+      - streaming-net
+    restart: always
+
+  grafana:
+    image: grafana/grafana:10.2.0
+    container_name: warkop_grafana
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    networks:
+      - orchestration-net
+      - streaming-net
+      - bi-net
     restart: always
 
 networks:

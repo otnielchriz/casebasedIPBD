@@ -13,10 +13,13 @@ from load_pendapatan_warkop import (
     load_income_to_postgres
 )
 
+from telegram_alert import send_telegram_alert
+
 default_args = {
     "owner": "warkop_kusuma",
     "retries": 2,
     "retry_delay": timedelta(minutes=2),
+    "on_failure_callback": send_telegram_alert,
 }
 
 with DAG(

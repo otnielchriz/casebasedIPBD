@@ -15,10 +15,13 @@ from scrap_weather_additional import (
     fetch_weather_prediksi_2minggu_and_load
 )
 
+from telegram_alert import send_telegram_alert
+
 default_args = {
     'owner': 'zaki',
     'retries': 2,
     'retry_delay': timedelta(minutes=5),
+    'on_failure_callback': send_telegram_alert,
 }
 
 # ============================================================

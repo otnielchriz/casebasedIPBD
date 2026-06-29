@@ -1,0 +1,26 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+
+scrape_configs:
+  - job_name: airflow-logs
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: airflow
+          __path__: /opt/airflow/logs/**/*.log
+    pipeline_stages:
+      # Parse typical Airflow log format:
+      # [2026-06-29 13:31:51,106] {dagbag.py:135} INFO - ...
+      # OR [2026-06-29T13:31:51.106+0000] {dagbag.py:135} ERROR - ...
+      - regex:
+          expression: '^\[(?P<timestamp>[^\]]+)\] \{(?P<caller>[^:]+:[0-9]+)\} (?P<level>[A-Z]+) - (?P<message>.*)$'
+      - labels:
+          level:

@@ -2,8 +2,15 @@ from airflow import DAG
 from airflow.operators.bash import BashOperator
 from datetime import datetime
 
+from telegram_alert import send_telegram_alert
+
+default_args = {
+    'on_failure_callback': send_telegram_alert,
+}
+
 with DAG(
     dag_id="ml_pipeline",
+    default_args=default_args,
     description="Retrain model dan generate prediksi pendapatan Warkop Kusuma",
     start_date=datetime(2026, 1, 1),
     schedule=None,

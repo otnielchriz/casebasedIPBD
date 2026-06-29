@@ -15,10 +15,13 @@ from scrap_weather_owm import fetch_owm_current_and_load, fetch_owm_batch_backfi
 # =========================
 # DAG CONFIG — STREAM MODE
 # =========================
+from telegram_alert import send_telegram_alert
+
 default_args = {
     'owner': 'zaki',
     'retries': 2,
     'retry_delay': timedelta(minutes=5),
+    'on_failure_callback': send_telegram_alert,
 }
 
 # ============================================================

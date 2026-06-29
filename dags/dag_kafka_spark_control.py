@@ -4,9 +4,12 @@ from airflow.operators.python import PythonOperator
 from datetime import datetime, timedelta
 import os
 
+from telegram_alert import send_telegram_alert
+
 default_args = {
     'owner': 'zaki',
     'retries': 0,
+    'on_failure_callback': send_telegram_alert,
 }
 
 def log_instruction():
