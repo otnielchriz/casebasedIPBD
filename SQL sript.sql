@@ -287,3 +287,19 @@ SELECT * FROM cuaca_historis
 ORDER BY waktu ASC;
 
 select * from v_cuaca_historis_urut;
+
+-- ==========================================
+-- METADATA & DATA GOVERNANCE (RPS Poin 9)
+-- ==========================================
+
+-- Deskripsi Kepemilikan Tabel (Owner Metadata)
+COMMENT ON TABLE cuaca_historis IS 'Tabel data cuaca historis Sukoharjo. Owner: Zaki (Infrastruktur & Core Pipeline)';
+COMMENT ON TABLE pendapatan_harian IS 'Tabel data pendapatan harian Warkop Kusuma. Owner: warkop_kusuma';
+COMMENT ON TABLE hari_libur IS 'Tabel kalender hari libur Indonesia 2026. Owner: Zaki (Infrastruktur & Core Pipeline)';
+COMMENT ON TABLE prediksi_pendapatan IS 'Tabel hasil ramalan pendapatan warkop 14 hari ke depan. Owner: Otniel (ML & Analytics)';
+
+-- Deskripsi Kolom (Column Metadata)
+COMMENT ON COLUMN cuaca_historis.waktu IS 'Waktu pencatatan cuaca (format WIB)';
+COMMENT ON COLUMN cuaca_historis.suhu IS 'Suhu udara rata-rata dalam derajat Celsius';
+COMMENT ON COLUMN pendapatan_harian.total_pendapatan IS 'Total omzet bersih warkop pada tanggal tersebut (rupiah)';
+COMMENT ON COLUMN hari_libur.is_libur IS 'Flag penanda hari libur (True untuk weekend/libur nasional/cuti bersama)';

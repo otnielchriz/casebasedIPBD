@@ -1,8 +1,3 @@
-# ==============================================================================
-# ⚠️ DEPRECATED (10-Minute Interval Consumer)
-# Gunakan scripts/scrapers/pyspark_consumer_weather.py dengan PySpark
-# ==============================================================================
-
 import json
 import psycopg2
 

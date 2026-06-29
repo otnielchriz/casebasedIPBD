@@ -1,3 +1,8 @@
+# ==============================================================================
+# ⚠️ DEPRECATED (OpenWeatherMap PySpark Consumer)
+# Proyek bermigrasi menggunakan Open-Meteo 10-menit di scripts/consumers/weather_consumer.py
+# ==============================================================================
+
 import os
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, from_json, to_timestamp, lit

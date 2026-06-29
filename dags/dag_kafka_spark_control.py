@@ -31,25 +31,16 @@ with DAG(
         python_callable=log_instruction
     )
 
-    # Menjalankan script Kafka Producer sebagai background process (daemon)
+    # Menjalankan Open-Meteo Kafka Producer sebagai background process
     start_producer = BashOperator(
         task_id='start_kafka_producer',
-        bash_command='nohup python /opt/airflow/scripts/scrapers/kafka_producer_weather.py > /opt/airflow/logs/kafka_producer.log 2>&1 & echo "Producer started in background!"'
+        bash_command='nohup python /opt/airflow/scripts/producers/weather_producer.py > /opt/airflow/logs/kafka_producer.log 2>&1 & echo "Producer started!"'
     )
 
-    def start_consumer_via_api():
-        import requests
-        try:
-            print("📡 Mengirim request untuk menjalankan PySpark Consumer...")
-            res = requests.post("http://warkop_pyspark:5000/start", timeout=15)
-            print(f"Response: {res.text}")
-        except Exception as e:
-            print(f"❌ Gagal memicu Spark Consumer melalui API: {e}")
-            raise e
-
-    start_consumer = PythonOperator(
-        task_id='start_pyspark_consumer',
-        python_callable=start_consumer_via_api
+    # Menjalankan Open-Meteo Kafka Consumer sebagai background process
+    start_consumer = BashOperator(
+        task_id='start_kafka_consumer',
+        bash_command='nohup python /opt/airflow/scripts/consumers/weather_consumer.py > /opt/airflow/logs/kafka_consumer.log 2>&1 & echo "Consumer started!"'
     )
 
     instruction_task >> start_producer >> start_consumer
