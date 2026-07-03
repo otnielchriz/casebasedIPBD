@@ -3,12 +3,9 @@ from airflow.providers.standard.operators.bash import BashOperator
 from airflow.providers.standard.operators.python import PythonOperator
 from datetime import datetime, timedelta
 
-from telegram_alert import send_telegram_alert
-
 default_args = {
     'owner': 'zaki',
     'retries': 0,
-    'on_failure_callback': send_telegram_alert,
 }
 
 def log_instruction():

@@ -63,23 +63,26 @@ print("Jumlah data setelah drop null:", len(df))
 
 
 # ==========================
-# 4. SPLIT DATA OTOMATIS 14 HARI TERAKHIR
+# 4. SPLIT DATA 80:20 TEMPORAL SPLIT (ADAPTIVE)
 # ==========================
 
 df = df.sort_values("tanggal")
 
 unique_dates = sorted(df["tanggal"].unique())
 
-test_dates = unique_dates[-14:]
+# Calculate 80:20 split dynamically
+total_dates = len(unique_dates)
+test_size = int(total_dates * 0.2)  # 20% untuk test
+test_dates = unique_dates[-test_size:]
 
 train_df = df[~df["tanggal"].isin(test_dates)]
 test_df = df[df["tanggal"].isin(test_dates)]
 
-print("\n=== PERIODE DATA ===")
+print("\n=== PERIODE DATA (80:20 SPLIT) ===")
 print("Train:", train_df["tanggal"].min().date(), "s/d", train_df["tanggal"].max().date())
 print("Test :", test_df["tanggal"].min().date(), "s/d", test_df["tanggal"].max().date())
-print("Jumlah train:", len(train_df))
-print("Jumlah test :", len(test_df))
+print("Jumlah train:", len(train_df), f"({len(train_df)/len(df)*100:.1f}%)")
+print("Jumlah test :", len(test_df), f"({len(test_df)/len(df)*100:.1f}%)")
 
 features = [
     "rata_suhu",
