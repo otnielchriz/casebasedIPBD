@@ -1,5 +1,5 @@
 # ==============================================================================
-# ⚠️ DEPRECATED (OpenWeatherMap 10-Second Streaming)
+# DEPRECATED (OpenWeatherMap 10-Second Streaming)
 # Proyek bermigrasi menggunakan Open-Meteo 10-menit di scripts/producers/weather_producer.py
 # ==============================================================================
 

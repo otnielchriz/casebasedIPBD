@@ -1,5 +1,5 @@
 # ==============================================================================
-# ⚠️ DEPRECATED (OpenWeatherMap PySpark Consumer)
+# DEPRECATED (OpenWeatherMap PySpark Consumer)
 # Proyek bermigrasi menggunakan Open-Meteo 10-menit di scripts/consumers/weather_consumer.py
 # ==============================================================================
 
@@ -92,7 +92,7 @@ def get_owm_condition(code):
 def get_owm_description(code):
     return OWM_CODE_MAP.get(code, ("Unknown", "Tidak Diketahui"))[1]
 
-# Kita tidak mendaftarkan UDF PySpark yang kompleks, kita akan menggunakan foreachBatch pandas mapping 
+# UDF PySpark yang kompleks tidak didaftarkan, melainkan menggunakan foreachBatch pandas mapping 
 # yang jauh lebih stabil dan ringan tanpa perlu konfigurasi worker kompleks.
 
 def write_to_postgres(df_batch, batch_id):

@@ -12,7 +12,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 # ==========================
 DB_USER = "airflow"
 DB_PASSWORD = "airflow"
-DB_HOST = "casebaseipbd-postgres-1"
+DB_HOST = "postgres"
 DB_PORT = "5432"
 DB_NAME = "airflow"
 
