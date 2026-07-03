@@ -43,7 +43,7 @@ def aggregate_income(**kwargs):
     output_path = "/opt/airflow/data/raw/pendapatan_harian.csv"
     df_daily.to_csv(output_path, index=False)
 
-    print("✅ AGGREGATE SUCCESS")
+    print("AGGREGATE SUCCESS")
     print(df_daily.head())
 
 
@@ -58,7 +58,7 @@ def load_income_to_postgres(**kwargs):
     df['tanggal'] = pd.to_datetime(df['tanggal'], errors='coerce').dt.date
 
     if df['tanggal'].isnull().any():
-        raise ValueError("Ada tanggal invalid di data!")
+        raise ValueError("Ada tanggal invalid di data")
 
     df['total_pendapatan'] = pd.to_numeric(
         df['total_pendapatan'],
@@ -81,6 +81,12 @@ def load_income_to_postgres(**kwargs):
 
     with engine.begin() as conn:
         conn.execute(text("""
+            CREATE TABLE IF NOT EXISTS pendapatan_harian (
+                tanggal DATE PRIMARY KEY,
+                total_pendapatan NUMERIC(15, 2) NOT NULL
+            );
+        """))
+        conn.execute(text("""
             DELETE FROM pendapatan_harian
             WHERE tanggal >= :start_month
               AND tanggal < :next_month
@@ -96,6 +102,6 @@ def load_income_to_postgres(**kwargs):
         index=False
     )
 
-    print("✅ SUCCESS: DATA BULAN TERBARU LOADED")
+    print("SUCCESS: DATA BULAN TERBARU LOADED")
     print(f"Range delete: {start_month} sampai sebelum {next_month}")
     print(df.head())

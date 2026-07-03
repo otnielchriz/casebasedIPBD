@@ -23,7 +23,7 @@ def _get_api_key():
     """Retrieve OWM API key from environment variables"""
     key = os.getenv("OPENWEATHERMAP_API_KEY", "")
     if not key:
-        raise ValueError("OPENWEATHERMAP_API_KEY tidak diset di environment variables!")
+        raise ValueError("OPENWEATHERMAP_API_KEY tidak diset di environment variables")
     return key
 
 def create_producer():
@@ -35,13 +35,13 @@ def create_producer():
                 bootstrap_servers=[KAFKA_BROKER],
                 value_serializer=lambda v: json.dumps(v).encode('utf-8')
             )
-            print("✅ Berhasil terhubung ke Kafka Broker!")
+            print("Berhasil terhubung ke Kafka Broker")
             return producer
         except Exception as e:
-            print(f"⏳ Menunggu Kafka siap... ({retries} retries left). Error: {e}")
+            print(f"Menunggu Kafka siap ({retries} retries left). Error: {e}")
             retries -= 1
             time.sleep(5)
-    raise Exception("❌ Gagal terhubung ke Kafka Broker setelah beberapa percobaan.")
+    raise Exception("Gagal terhubung ke Kafka Broker setelah beberapa percobaan")
 
 def fetch_current_weather():
     """Fetch current weather for Sukoharjo from OpenWeatherMap"""
@@ -57,7 +57,7 @@ def fetch_current_weather():
     data = response.json()
     
     if "dt" not in data:
-        raise ValueError("Response OpenWeatherMap tidak memiliki key 'dt'!")
+        raise ValueError("Response OpenWeatherMap tidak memiliki key 'dt'")
         
     # Convert OWM's epoch timestamp (UTC) to WIB (UTC+7)
     waktu_wib = datetime.utcfromtimestamp(data["dt"]) + timedelta(hours=7)
@@ -79,7 +79,7 @@ def fetch_current_weather():
 
 def start_streaming():
     producer = create_producer()
-    print(f"🚀 Memulai sensor cuaca Sukoharjo (OpenWeatherMap)... Mengirim data ke '{TOPIC_NAME}' setiap 10 detik.")
+    print(f"Memulai sensor cuaca Sukoharjo (OpenWeatherMap)... Mengirim data ke '{TOPIC_NAME}' setiap 10 detik")
     
     try:
         while True:
@@ -87,12 +87,12 @@ def start_streaming():
                 weather_data = fetch_current_weather()
                 producer.send(TOPIC_NAME, value=weather_data)
                 producer.flush()
-                print(f"📡 [PRODUCED - OWM] {weather_data['waktu']} | Suhu: {weather_data['suhu']}°C | Kelembapan: {weather_data['kelembapan']}%")
+                print(f"[PRODUCED - OWM] {weather_data['waktu']} | Suhu: {weather_data['suhu']}°C | Kelembapan: {weather_data['kelembapan']}%")
             except Exception as e:
-                print(f"⚠️ Gagal mengambil/mengirim data cuaca: {e}")
+                print(f"Gagal mengambil/mengirim data cuaca: {e}")
             time.sleep(10)
     except KeyboardInterrupt:
-        print("🛑 Streaming dihentikan oleh user.")
+        print("Streaming dihentikan oleh user")
     finally:
         producer.close()
 

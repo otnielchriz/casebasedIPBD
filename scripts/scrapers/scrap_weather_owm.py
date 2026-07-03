@@ -281,7 +281,7 @@ def fetch_owm_current_and_load(**kwargs):
     with engine.begin() as conn:
         _upsert_rows(conn, [row])
 
-    print(f" ✅ SUCCESS upsert data real-time ke cuaca_historis")
+    print(f" SUCCESS upsert data real-time ke cuaca_historis")
 
 
 def fetch_owm_batch_backfill(**kwargs):
@@ -342,7 +342,7 @@ def fetch_owm_batch_backfill(**kwargs):
         })
 
     df = pd.DataFrame(rows)
-    print(f"📦 Batch backfill: {len(df)} rows | range: {df['waktu'].iloc[0]} → {df['waktu'].iloc[-1]}")
+    print(f"Batch backfill: {len(df)} rows | range: {df['waktu'].iloc[0]} → {df['waktu'].iloc[-1]}")
 
     # =========================
     # SAVE CSV
@@ -353,7 +353,7 @@ def fetch_owm_batch_backfill(**kwargs):
     end_date = df["waktu"].iloc[-1][:10]
     file_path = os.path.join(folder, f"cuaca_warkop_{start_date}_to_{end_date}.csv")
     df.to_csv(file_path, index=False)
-    print(f"💾 CSV saved: {file_path}")
+    print(f"CSV saved: {file_path}")
 
     # =========================
     # UPSERT BATCH KE POSTGRES
@@ -364,4 +364,4 @@ def fetch_owm_batch_backfill(**kwargs):
     with engine.begin() as conn:
         _upsert_rows(conn, rows)
 
-    print(f"🚀 SUCCESS upsert {len(df)} rows batch ke cuaca_historis")
+    print(f"SUCCESS upsert {len(df)} rows batch ke cuaca_historis")

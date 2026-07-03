@@ -61,8 +61,30 @@ def insert_weather(data):
     conn.close()
 
 
-def main():
+def create_table_if_not_exists():
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS cuaca_stream_raw (
+            waktu_ambil TIMESTAMP NOT NULL,
+            kota VARCHAR(100) NOT NULL,
+            weather_code INTEGER,
+            suhu NUMERIC(5,2),
+            suhu_terasa NUMERIC(5,2),
+            kelembapan INTEGER,
+            kecepatan_angin NUMERIC(6,2),
+            curah_hujan NUMERIC(6,2),
+            cloudiness INTEGER
+        );
+    """)
+    conn.commit()
+    cur.close()
+    conn.close()
 
+
+def main():
+    create_table_if_not_exists()
+    
     consumer = KafkaConsumer(
         TOPIC,
 

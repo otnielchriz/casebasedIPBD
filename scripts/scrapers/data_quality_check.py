@@ -2,24 +2,25 @@ import sys
 import pandas as pd
 from sqlalchemy import create_engine
 import great_expectations as gx
+from great_expectations.dataset import PandasDataset
 
 # Use the Docker internal DB connection URI
 DB_URL = "postgresql+psycopg2://airflow:airflow@postgres/airflow"
 
 def run_data_quality_validation():
-    print("🚀 Starting Data Quality validation via Great Expectations...")
+    print("Starting Data Quality validation via Great Expectations")
     
     engine = create_engine(DB_URL)
     
     # 1. Validate 'cuaca_historis' table
-    print("📋 Validating table 'cuaca_historis'...")
+    print("Validating table 'cuaca_historis'")
     try:
         df_cuaca = pd.read_sql("SELECT waktu, suhu, kelembapan, curah_hujan FROM cuaca_historis", engine)
     except Exception as e:
-        print(f"❌ Failed to read cuaca_historis: {e}")
+        print(f"Failed to read cuaca_historis: {e}")
         raise e
         
-    gx_cuaca = gx.dataset.PandasDataset(df_cuaca)
+    gx_cuaca = PandasDataset(df_cuaca)
     
     # Rules (Expectations) for weather data
     chk_cuaca_waktu = gx_cuaca.expect_column_values_to_not_be_null("waktu")
@@ -28,14 +29,14 @@ def run_data_quality_validation():
     chk_cuaca_hujan = gx_cuaca.expect_column_values_to_be_between("curah_hujan", min_value=0, max_value=500)
     
     # 2. Validate 'pendapatan_harian' table
-    print("📋 Validating table 'pendapatan_harian'...")
+    print("Validating table 'pendapatan_harian'")
     try:
         df_income = pd.read_sql("SELECT tanggal, total_pendapatan FROM pendapatan_harian", engine)
     except Exception as e:
-        print(f"❌ Failed to read pendapatan_harian: {e}")
+        print(f"Failed to read pendapatan_harian: {e}")
         raise e
         
-    gx_income = gx.dataset.PandasDataset(df_income)
+    gx_income = PandasDataset(df_income)
     
     # Rules (Expectations) for daily revenue data
     chk_inc_tgl = gx_income.expect_column_values_to_not_be_null("tanggal")
@@ -69,11 +70,11 @@ def run_data_quality_validation():
         if not chk_inc_tgl.success: failed_tests.append("pendapatan_harian.tanggal IS NULL")
         if not chk_inc_val.success: failed_tests.append("pendapatan_harian.total_pendapatan negative or excessive")
         
-        err_msg = f"Data Quality Check FAILED! Issues found: {', '.join(failed_tests)}"
-        print(f"❌ {err_msg}")
+        err_msg = f"Data Quality Check FAILED. Issues found: {', '.join(failed_tests)}"
+        print(f"{err_msg}")
         raise ValueError(err_msg)
         
-    print("✅ All Great Expectations validations passed successfully!")
+    print("All Great Expectations validations passed successfully")
 
 if __name__ == "__main__":
     run_data_quality_validation()

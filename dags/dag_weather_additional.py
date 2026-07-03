@@ -1,5 +1,5 @@
 from airflow import DAG
-from airflow.operators.python import PythonOperator
+from airflow.providers.standard.operators.python import PythonOperator
 from datetime import datetime, timedelta
 import sys
 
@@ -10,10 +10,13 @@ SCRAPERS_PATH = '/opt/airflow/scripts/scrapers'
 if SCRAPERS_PATH not in sys.path:
     sys.path.insert(0, SCRAPERS_PATH)
 
-from scrap_weather_additional import (
-    fetch_weather_sebulan_lalu_and_load,
-    fetch_weather_prediksi_2minggu_and_load
-)
+def run_fetch_sebulan_lalu(**kwargs):
+    from scrap_weather_additional import fetch_weather_sebulan_lalu_and_load
+    fetch_weather_sebulan_lalu_and_load(**kwargs)
+
+def run_fetch_prediksi_2minggu(**kwargs):
+    from scrap_weather_additional import fetch_weather_prediksi_2minggu_and_load
+    fetch_weather_prediksi_2minggu_and_load(**kwargs)
 
 from telegram_alert import send_telegram_alert
 
@@ -40,7 +43,7 @@ with DAG(
 
     task_fetch_historis = PythonOperator(
         task_id='fetch_sebulan_lalu',
-        python_callable=fetch_weather_sebulan_lalu_and_load,
+        python_callable=run_fetch_sebulan_lalu,
     )
 
 # ============================================================
@@ -59,5 +62,5 @@ with DAG(
 
     task_fetch_prediksi = PythonOperator(
         task_id='fetch_prediksi_2minggu',
-        python_callable=fetch_weather_prediksi_2minggu_and_load,
+        python_callable=run_fetch_prediksi_2minggu,
     )

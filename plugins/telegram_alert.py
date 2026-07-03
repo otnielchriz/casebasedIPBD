@@ -8,17 +8,25 @@ def send_telegram_alert(context):
     task_instance = context.get('task_instance')
     dag_id = task_instance.dag_id
     task_id = task_instance.task_id
-    execution_date = context.get('dag_run').execution_date if context.get('dag_run') else context.get('execution_date')
+    
+    # Safe resolution of logical/execution date for Airflow 3 compatibility
+    dag_run = context.get('dag_run')
+    execution_date = None
+    if dag_run:
+        execution_date = getattr(dag_run, 'logical_date', None) or getattr(dag_run, 'execution_date', None)
+    if not execution_date:
+        execution_date = context.get('logical_date') or context.get('execution_date') or "Unknown"
+        
     log_url = task_instance.log_url
     
     # Simple formatting of error message
     message = (
-        f"🚨 *Airflow Task Failed* 🚨\n\n"
+        f"*Airflow Task Failed*\n\n"
         f"*DAG ID:* `{dag_id}`\n"
         f"*Task ID:* `{task_id}`\n"
         f"*Execution Date:* `{execution_date}`\n"
-        f"*Status:* `FAILED` ❌\n\n"
-        f"🔍 *Logs Link:* \n[Click here to view logs]({log_url})"
+        f"*Status:* `FAILED`\n\n"
+        f"*Logs Link:* \n[Click here to view logs]({log_url})"
     )
     
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"

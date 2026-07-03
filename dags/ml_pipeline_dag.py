@@ -1,5 +1,5 @@
 from airflow import DAG
-from airflow.operators.bash import BashOperator
+from airflow.providers.standard.operators.bash import BashOperator
 from datetime import datetime
 
 from telegram_alert import send_telegram_alert

@@ -42,7 +42,7 @@ def setup_rbac():
         
         cursor.close()
         conn.close()
-        print("SUCCESS: Konfigurasi RBAC PostgreSQL selesai!")
+        print("SUCCESS: Konfigurasi RBAC PostgreSQL selesai")
     except Exception as e:
         print(f"ERROR: Gagal setup RBAC PostgreSQL: {e}")
 

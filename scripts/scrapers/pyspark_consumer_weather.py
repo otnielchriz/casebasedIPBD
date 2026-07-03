@@ -185,7 +185,7 @@ def start_spark_streaming():
         .outputMode("update") \
         .start()
 
-    print(f"🚀 Streaming berjalan! Memantau Kafka topic: {TOPIC_NAME}")
+    print(f"Streaming berjalan. Memantau Kafka topic: {TOPIC_NAME}")
     query.awaitTermination()
 
 if __name__ == "__main__":

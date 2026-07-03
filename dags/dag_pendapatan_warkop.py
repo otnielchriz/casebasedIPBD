@@ -1,6 +1,6 @@
-from airflow.operators.trigger_dagrun import TriggerDagRunOperator
+from airflow.providers.standard.operators.trigger_dagrun import TriggerDagRunOperator
 from airflow import DAG
-from airflow.operators.python import PythonOperator
+from airflow.providers.standard.operators.python import PythonOperator
 from datetime import datetime, timedelta
 import sys
 
@@ -9,10 +9,13 @@ SCRAPERS_PATH = "/opt/airflow/scripts/scrapers"
 if SCRAPERS_PATH not in sys.path:
     sys.path.insert(0, SCRAPERS_PATH)
 
-from load_pendapatan_warkop import (
-    aggregate_income,
-    load_income_to_postgres
-)
+def run_aggregate_income(**kwargs):
+    from load_pendapatan_warkop import aggregate_income
+    aggregate_income(**kwargs)
+
+def run_load_income_to_postgres(**kwargs):
+    from load_pendapatan_warkop import load_income_to_postgres
+    load_income_to_postgres(**kwargs)
 
 from telegram_alert import send_telegram_alert
 
@@ -34,12 +37,12 @@ with DAG(
 
     task_aggregate_income = PythonOperator(
         task_id="aggregate_income_daily",
-        python_callable=aggregate_income,
+        python_callable=run_aggregate_income,
     )
 
     task_load_income = PythonOperator(
         task_id="load_income_to_postgres",
-        python_callable=load_income_to_postgres,
+        python_callable=run_load_income_to_postgres,
     )
 
     trigger_ml_pipeline = TriggerDagRunOperator(

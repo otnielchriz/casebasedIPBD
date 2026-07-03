@@ -87,10 +87,10 @@ def _process_and_save(data, table_name, csv_filename, start_date, end_date):
         df_gabungan = df_gabungan.drop_duplicates(subset=["waktu"], keep="last")
         df_gabungan = df_gabungan.sort_values("waktu")
         df_gabungan.to_csv(file_path, index=False)
-        print(f"♻️ CSV updated: {file_path}")
+        print(f"CSV updated: {file_path}")
     else:
         df.to_csv(file_path, index=False)
-        print(f"💾 CSV created: {file_path}")
+        print(f"CSV created: {file_path}")
 
     # =========================
     # POSTGRES UPSERT
@@ -118,15 +118,15 @@ def _process_and_save(data, table_name, csv_filename, start_date, end_date):
         # 2. Delete data in the specified range to avoid duplicates
         conn.execute(text(f"""
             DELETE FROM {table_name}
-            WHERE waktu >= :start AND waktu < :end
+            WHERE waktu >= :start AND waktu <= :end
         """), {
-            "start": start_date,
-            "end": end_date + timedelta(days=1)
+            "start": df["waktu"].min(),
+            "end": df["waktu"].max()
         })
 
     # 3. Append new data
     df.to_sql(table_name, con=engine, if_exists="append", index=False)
-    print(f"🚀 SUCCESS insert {len(df)} rows ke {table_name}")
+    print(f"SUCCESS insert {len(df)} rows ke {table_name}")
 
 
 def fetch_weather_sebulan_lalu_and_load(**kwargs):
@@ -156,7 +156,7 @@ def fetch_weather_sebulan_lalu_and_load(**kwargs):
     res.raise_for_status()
     
     _process_and_save(res.json(), "cuaca_sukoharjo_sebulan_lalu", "cuaca_sukoharjo_sebulan_lalu.csv", start_date, end_date)
-    print(f"✅ Historis sebulan lalu berhasil di-load ({start_date} to {end_date})")
+    print(f"Historis sebulan lalu berhasil di-load ({start_date} to {end_date})")
 
 
 def fetch_weather_prediksi_2minggu_and_load(**kwargs):
@@ -186,4 +186,4 @@ def fetch_weather_prediksi_2minggu_and_load(**kwargs):
     res.raise_for_status()
     
     _process_and_save(res.json(), "cuaca_sukoharjo_prediksi_2minggu", "cuaca_sukoharjo_prediksi_2minggu.csv", start_date, end_date)
-    print(f"✅ Prediksi 2 minggu berhasil di-load ({start_date} to {end_date})")
+    print(f"Prediksi 2 minggu berhasil di-load ({start_date} to {end_date})")

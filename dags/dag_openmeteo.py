@@ -1,11 +1,8 @@
 from airflow import DAG
-from airflow.operators.python import PythonOperator
+from airflow.providers.standard.operators.python import PythonOperator
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 
 from datetime import datetime, timedelta
-from sqlalchemy import text
-
-import pandas as pd
 import os
 import sys
 
@@ -15,9 +12,13 @@ SCRAPERS_PATH = "/opt/airflow/scripts/scrapers"
 if SCRAPERS_PATH not in sys.path:
     sys.path.insert(0, SCRAPERS_PATH)
 
-from scrap_weather_ncep import fetch_weather_forecast_to_csv
+def run_fetch_weather_forecast_to_csv(**kwargs):
+    from scrap_weather_ncep import fetch_weather_forecast_to_csv
+    fetch_weather_forecast_to_csv(**kwargs)
 
 def load_csv_to_postgres(**kwargs):
+    import pandas as pd
+    from sqlalchemy import text
     file_path = "/opt/airflow/data/raw/cuaca_warkop.csv"
 
     if not os.path.exists(file_path):
@@ -88,7 +89,7 @@ with DAG(
 
     task_scrape_weather = PythonOperator(
         task_id="scrape_weather_to_csv",
-        python_callable=fetch_weather_forecast_to_csv,
+        python_callable=run_fetch_weather_forecast_to_csv,
     )
 
     task_load_postgres = PythonOperator(

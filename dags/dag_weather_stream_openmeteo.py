@@ -1,8 +1,7 @@
 from airflow import DAG
-from airflow.operators.bash import BashOperator
-from airflow.operators.python import PythonOperator
+from airflow.providers.standard.operators.bash import BashOperator
+from airflow.providers.standard.operators.python import PythonOperator
 from datetime import datetime, timedelta
-import os
 
 from telegram_alert import send_telegram_alert
 
@@ -14,19 +13,19 @@ default_args = {
 
 def log_instruction():
     print("============================================================")
-    print("STATUS KONTROL STREAMING KAFKA & PYSPARK")
+    print("STATUS KONTROL STREAMING OPEN-METEO (10 MENIT)")
     print("============================================================")
-    print("DAG ini berfungsi sebagai antarmuka untuk menyalakan servis streaming.")
-    print("Pastikan container `warkop_kafka` dan `warkop_pyspark` telah berjalan via docker-compose.")
+    print("DAG ini mengaktifkan Producer dan Consumer untuk streaming cuaca Open-Meteo.")
+    print("Data akan dikirim ke Kafka dan disimpan ke tabel `cuaca_stream_raw`.")
 
 with DAG(
-    dag_id='kafka_spark_streaming_control',
+    dag_id='weather_stream_openmeteo_control',
     default_args=default_args,
-    description='Kontrol untuk menyalakan/mematikan simulasi streaming Kafka & PySpark.',
-    schedule=None, # Triggered manually
+    description='Kontrol untuk menyalakan/mematikan simulasi streaming Open-Meteo 10-menit.',
+    schedule=None, # Manual trigger only
     start_date=datetime(2026, 4, 1),
     catchup=False,
-    tags=['streaming', 'kafka', 'pyspark', 'realtime'],
+    tags=['streaming', 'kafka', 'openmeteo', 'realtime'],
 ) as dag:
 
     instruction_task = PythonOperator(
@@ -37,13 +36,13 @@ with DAG(
     # Menjalankan Open-Meteo Kafka Producer sebagai background process
     start_producer = BashOperator(
         task_id='start_kafka_producer',
-        bash_command='nohup python /opt/airflow/scripts/producers/weather_producer.py > /opt/airflow/logs/kafka_producer.log 2>&1 & echo "Producer started!"'
+        bash_command='nohup python /opt/airflow/scripts/producers/weather_producer.py > /opt/airflow/logs/kafka_producer.log 2>&1 & echo "Producer started"'
     )
 
     # Menjalankan Open-Meteo Kafka Consumer sebagai background process
     start_consumer = BashOperator(
         task_id='start_kafka_consumer',
-        bash_command='nohup python /opt/airflow/scripts/consumers/weather_consumer.py > /opt/airflow/logs/kafka_consumer.log 2>&1 & echo "Consumer started!"'
+        bash_command='nohup python /opt/airflow/scripts/consumers/weather_consumer.py > /opt/airflow/logs/kafka_consumer.log 2>&1 & echo "Consumer started"'
     )
 
     instruction_task >> start_producer >> start_consumer

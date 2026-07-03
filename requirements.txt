@@ -14,5 +14,5 @@ kafka-python
 
 # Observability & Data Governance
 prometheus-client
-great_expectations
+great_expectations==0.18.12
 apache-airflow-providers-telegram
